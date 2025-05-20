@@ -1,0 +1,24 @@
+{
+    "racers":[
+        {"name":"Max","lastname":"Verstappen"},
+        {"name":"Oscar","lastname":"Piastri"},
+        {"name":"Lando","lastname":"Norris"},
+        {"name":"George","lastname":"Russell"},
+        {"name":"Charles","lastname":"Leclerc"},
+        {"name":"Lewis","lastname":"Hamilton"},
+        {"name":"Kimi","lastname":"Anotenelli"},
+        {"name":"Alexander","lastname":"Albon"},
+        {"name":"Esteban","lastname":"Ocon"},
+        {"name":"Lance","lastname":"Stroll"},
+        {"name":"Carlos","lastname":"Sainz"},
+        {"name":"Yuki","lastname":"Tsunoda"},
+        {"name":"Pierre","lastname":"Gasly"},
+        {"name":"Isack","lastname":"Hadjar"},
+        {"name":"Nico","lastname":"Hulkenber"},
+        {"name":"Oliver","lastname":"Bearman"},
+        {"name":"Fernando","lastname":"Alonso"},
+        {"name":"Liam","lastname":"Lawson"},
+        {"name":"Gabriel","lastname":"Bortoleto"},
+        {"name":"Franco","lastname":"Colapinto"}
+    ]
+}
