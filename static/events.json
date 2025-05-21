@@ -8,7 +8,7 @@
         {"id":5,"event":"DNF"},
         {"id":6,"event":"P"},
         {"id":7,"event":"crashes"},
-        {"id":8,"event":"fumble tires"},
+        {"id":8,"event":"fumbles tires"},
         {"id":9,"event":"bottles lap 1"},
         {"id":10,"event":"loses places on the opening lap"},
         {"id":11,"event":"starts from the pit lane"},
@@ -24,9 +24,9 @@
         {"id":21,"event":"black flag"}
     ],
 
-    "raver-event-racer":[
+    "racer-event-racer":[
         {"id":0,"event":"finishes ahead of"},
-        {"id":1,"event":"crash with"},
+        {"id":1,"event":"crashes with"},
         {"id":2,"event":"outqualifies"},
         {"id":3,"event":"outscores"}
     ],
@@ -38,7 +38,7 @@
         {"id":3,"event":"fastest pit stop"},
         {"id":4,"event":"slowest pit stop"},
         {"id":5,"event":"gets the fastest lap"},
-        {"id":6,"event":"podimum"},
+        {"id":6,"event":"podium"},
         {"id":7,"event":"finishes top 5"},
         {"id":8,"event":"fumbles strategy"}
     ],
