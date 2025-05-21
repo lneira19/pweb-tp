@@ -1,0 +1,72 @@
+{
+    "racer-event":[
+        {"id":0,"event":"no points"},
+        {"id":1,"event":"win"},
+        {"id":2,"event":"rants on radio"},
+        {"id":3,"event":"podimum"},
+        {"id":4,"event":"points"},
+        {"id":5,"event":"DNF"},
+        {"id":6,"event":"P"},
+        {"id":7,"event":"crashes"},
+        {"id":8,"event":"fumble tires"},
+        {"id":9,"event":"bottles lap 1"},
+        {"id":10,"event":"loses places on the opening lap"},
+        {"id":11,"event":"starts from the pit lane"},
+        {"id":12,"event":"in Q3"},
+        {"id":13,"event":"in Q2"},
+        {"id":14,"event":"gets the fastest lap"},
+        {"id":15,"event":"finishes top 10"},
+        {"id":16,"event":"finishes top 5"},
+        {"id":17,"event":"gains places on the opening lap"},
+        {"id":18,"event":"gets +5s penalty"},
+        {"id":19,"event":"gets +10s penalty"},
+        {"id":20,"event":"gets 1 place penalty"},
+        {"id":21,"event":"black flag"}
+    ],
+
+    "raver-event-racer":[
+        {"id":0,"event":"finishes ahead of"},
+        {"id":1,"event":"crash with"},
+        {"id":2,"event":"outqualifies"},
+        {"id":3,"event":"outscores"}
+    ],
+
+    "team-event":[
+        {"id":0,"event":"in the points"},
+        {"id":1,"event":"double podium"},
+        {"id":2,"event":"P1-P2"},
+        {"id":3,"event":"fastest pit stop"},
+        {"id":4,"event":"slowest pit stop"},
+        {"id":5,"event":"gets the fastest lap"},
+        {"id":6,"event":"podimum"},
+        {"id":7,"event":"finishes top 5"},
+        {"id":8,"event":"fumbles strategy"}
+    ],
+
+    "lap-or-turn-event":[
+        {"id":0,"event":"incident"},
+        {"id":1,"event":"Safety Car"},
+        {"id":3,"event":"Virtual Safety Car"}
+    ],
+
+    "amount-event":[
+        {"id":0,"event":"or less DNFs"},
+        {"id":1,"event":"or less rookie incidents"},
+        {"id":2,"event":"or more lead the race"},
+        {"id":3,"event":"seconds winning gap"}
+    ],
+
+    "random-event":[
+        {"id":0,"event":"Grass fire"},
+        {"id":1,"event":"Crowd memes"},
+        {"id":2,"event":"Rookie spin"},
+        {"id":3,"event":"Tire puncture"},
+        {"id":4,"event":"Red Flag in Qualifying"},
+        {"id":5,"event":"Red Flag in Race"},
+        {"id":6,"event":"Yellow Flag in Qualifying"},
+        {"id":7,"event":"Yellow Flag in Race"},
+        {"id":8,"event":"Post-race penalties"},
+        {"id":9,"event":"Engine explosion"},
+        {"id":10,"event":"Starts raining"}
+    ]
+}
