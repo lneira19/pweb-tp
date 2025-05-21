@@ -1,6 +1,137 @@
 
 
-/* ARRAYS CON INFORMACIÓN DE TIPO CONSTANTE */
+/* IMPORTACIÓN DE INFORMACIÓN CONTENIDO EN ARCHIVOS .JSON */
 
-import data from "./static/data.json" with { type: "json" }
-console.log(data.racers)
+import dataJSON from "./static/data.json" with { type: "json" }
+import eventsJSON from "./static/events.json" with { type: "json" }
+
+/* FUNCIONES BACKEND */
+
+function getRandomInt(min, max) {
+    // El máximo es exclusivo y el mínimo es inclusivo
+    
+    let randint = Math.floor(Math.random()* (max - min)) + min;
+    return randint
+}
+
+function getNextStage(){
+    // Esta función obtiene la siguiente etapa de la competencia
+    // La etapa se obtiene a partir de la fecha de inicio y la fecha de fin
+    // La fecha de fin es 4 días después de la fecha de inicio
+
+    let obj_stages = dataJSON["stages"]
+
+    let arr_enddates = obj_stages.map((stage) => 
+        Date.parse(stage["startdate"]) + 4*24*60*60*1000
+    )
+
+    let arr_diff_dates = arr_enddates.map((enddate) => {
+        
+        let diff = enddate - Date.now()
+        
+        if (diff < 0){
+            diff = 0
+        }
+
+        return diff
+    })
+
+    let stage_index = arr_diff_dates.findIndex((diff) => diff > 0)
+
+    let obj_next_stage = obj_stages.at(stage_index)
+
+    return obj_next_stage
+}
+
+/* FUNCIONES PARA CONSTRUIR BLOQUES DE MANERA ALEATORIA */
+
+function constructorRandomRacerEvent(){
+    // Esta función construye un bloque de evento de corredor aleatorio
+    // El bloque contiene un corredor y un evento
+
+    let obj_racer = dataJSON["racers"].at(getRandomInt(0, dataJSON["racers"].length))
+    let obj_event = eventsJSON["racer-event"].at(getRandomInt(0, eventsJSON["racer-event"].length))
+    
+    // Obtengo los valores almacenados en cada objeto particular
+    let racer_name = obj_racer["name"]+" "+obj_racer["lastname"]
+    let event_description = obj_event["event"]
+
+    if (obj_event["id"] == 6){
+        let position = getRandomInt(2, 21)
+        return racer_name+" "+event_description+position
+    }
+    else{
+        return racer_name+" "+event_description
+    }
+}
+
+function constructorRandomRacerEventRacer(){
+
+    let racer1_id = getRandomInt(0, dataJSON["racers"].length)
+    let racer2_id = 0
+    
+    while (true){
+        racer2_id = getRandomInt(0, dataJSON["racers"].length)
+        if (racer1_id !== racer2_id){
+            break
+        }
+    }
+
+    let obj_racer1 = dataJSON["racers"].at(racer1_id)
+    let obj_racer2 = dataJSON["racers"].at(racer2_id)
+    let obj_event = eventsJSON["racer-event-racer"].at(getRandomInt(0, eventsJSON["racer-event-racer"].length))
+
+    // Obtengo los valores almacenados en cada objeto particular
+    let racer1_name = obj_racer1["name"]+" "+obj_racer1["lastname"]
+    let racer2_name = obj_racer2["name"]+" "+obj_racer2["lastname"]
+    let event_description = obj_event["event"]
+
+    return racer1_name+" "+event_description+" "+racer2_name
+}
+
+function constructorRandomTeamEvent(){
+    // Esta función construye un bloque de evento de equipo aleatorio
+
+    let obj_team = dataJSON["teams"].at(getRandomInt(0, dataJSON["teams"].length))
+    let obj_event = eventsJSON["team-event"].at(getRandomInt(0, eventsJSON["team-event"].length))
+
+    // Obtengo los valores almacenados en cada objeto particular
+    let team_name = obj_team["name"]
+    let event_description = obj_event["event"]
+
+    return team_name+" "+event_description
+}
+
+function constructorLapEvent(){
+    // Esta función construye un bloque de evento de vuelta aleatorio
+
+    let obj_next_stage = getNextStage()
+    let obj_event = eventsJSON["lap-or-turn-event"].at(getRandomInt(0, eventsJSON["lap-or-turn-event"].length))
+
+    // Obtengo los valores almacenados en cada objeto particular
+    let stage_laps = obj_next_stage["laps"]
+    let event_description = obj_event["event"]
+
+    // Se determina un número aleatorio de vuelta
+    let lap_number = getRandomInt(1, stage_laps+1)
+    
+    return "Lap "+lap_number+" "+event_description
+}
+
+function constructorTurnEvent(){
+    // Esta función construye un bloque de evento de curva aleatorio
+
+    let obj_next_stage = getNextStage()
+    let obj_event = eventsJSON["lap-or-turn-event"].at(getRandomInt(0, eventsJSON["lap-or-turn-event"].length))
+
+    // Obtengo los valores almacenados en cada objeto particular
+    let stage_turns = obj_next_stage["turns"]
+    let event_description = obj_event["event"]
+
+    // Se determina un número aleatorio de vuelta
+    let turn_number = getRandomInt(1, stage_turns+1)
+    
+    return "Turn "+turn_number+" "+event_description
+}
+
+console.log(constructorTurnEvent())
