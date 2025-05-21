@@ -1,18 +1,13 @@
-
-
 /* IMPORTACIÓN DE INFORMACIÓN CONTENIDO EN ARCHIVOS .JSON */
 
-import dataJSON from "./static/data.json" with { type: "json" }
-import eventsJSON from "./static/events.json" with { type: "json" }
+import dataJSON from "../static/data.json" with { type: "json" }
+import eventsJSON from "../static/events.json" with { type: "json" }
+
+/* IMPORTACNIÓN DE FUNCIONES EXTERNAS */
+
+import { getRandomInt } from "./myutils.js"
 
 /* FUNCIONES BACKEND */
-
-function getRandomInt(min, max) {
-    // El máximo es exclusivo y el mínimo es inclusivo
-    
-    let randint = Math.floor(Math.random()* (max - min)) + min;
-    return randint
-}
 
 function getNextStage(){
     // Esta función obtiene la siguiente etapa de la competencia
@@ -43,7 +38,7 @@ function getNextStage(){
     return obj_next_stage
 }
 
-/* FUNCIONES PARA CONSTRUIR BLOQUES DE MANERA ALEATORIA */
+/* FUNCIONES PARA CONSTRUIR STRING PARA CADA EVENTO ESPECÍFCO*/
 
 function constructorRandomRacerEvent(){
     // Esta función construye un bloque de evento de corredor aleatorio
@@ -102,7 +97,7 @@ function constructorRandomTeamEvent(){
     return team_name+" "+event_description
 }
 
-function constructorLapEvent(){
+function constructorRandomLapEvent(){
     // Esta función construye un bloque de evento de vuelta aleatorio
 
     let obj_next_stage = getNextStage()
@@ -118,7 +113,7 @@ function constructorLapEvent(){
     return "Lap "+lap_number+" "+event_description
 }
 
-function constructorTurnEvent(){
+function constructorRandomLapTurn(){
     // Esta función construye un bloque de evento de curva aleatorio
 
     let obj_next_stage = getNextStage()
@@ -134,4 +129,77 @@ function constructorTurnEvent(){
     return "Turn "+turn_number+" "+event_description
 }
 
-console.log(constructorTurnEvent())
+function constructorAmountEvent(){
+    // Esta función construye un bloque de evento de cantidad aleatorio
+
+    let obj_event = eventsJSON["amount-event"].at(getRandomInt(0, eventsJSON["amount-event"].length))
+
+    // Obtengo los valores almacenados en cada objeto particular
+    let event_id = obj_event["id"]
+    let event_description = obj_event["event"]
+    
+    switch (event_id) {
+        case 0:
+            let amount1 = getRandomInt(1, 6)
+            return amount1+" "+event_description
+        case 1:
+            let amount2 = getRandomInt(1, 4)
+            return amount2+" "+event_description
+        case 2:
+            let amount3 = getRandomInt(1, 4)
+            return amount3+" "+event_description
+        case 3:
+            let amount4 = getRandomInt(1, 30)
+            return "+"+amount4+" "+event_description
+    }
+}
+
+function constructorRandomRandomEvent(){
+    // Esta función construye un bloque de evento aleatorio
+    // El bloque contiene un evento aleatorio
+
+    let obj_event = eventsJSON["random-event"].at(getRandomInt(0, eventsJSON["random-event"].length))
+
+    // Obtengo los valores almacenados en cada objeto particular
+    let event_description = obj_event["event"]
+
+    return event_description
+}
+
+/* FUNCIÓN PARA CONSTUIR UN EVENTO ALEATORIO */
+function randomEventGenerator(){
+    // Esta función construye un bloque de evento aleatorio
+    // El bloque contiene un evento aleatorio
+
+    let event_id = getRandomInt(0, 7)
+
+    switch (event_id) {
+        case 0:
+            return constructorRandomRacerEvent()
+        case 1:
+            return constructorRandomRacerEventRacer()
+        case 2:
+            return constructorRandomTeamEvent()
+        case 3:
+            return constructorRandomLapEvent()
+        case 4:
+            return constructorRandomLapTurn()
+        case 5:
+            return constructorAmountEvent()
+        case 6:
+            return constructorRandomRandomEvent()
+    }
+}
+/* FUNCIÓN PARA GENERAR UNA COLECCIÓN DE EVENTOS ALEATORIOS */
+export function getCollectionOfRandomEvents(n){
+    // Esta función construye una colección de eventos aleatorios
+    // La colección contiene n eventos aleatorios
+
+    let arr_random_events = []
+
+    for (let i = 0; i < n; i++){
+        arr_random_events.push(randomEventGenerator())
+    }
+
+    return arr_random_events
+}
