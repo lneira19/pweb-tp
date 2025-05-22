@@ -10,6 +10,11 @@
         h3{text-align: center;}
         table{text-align: center;border-block-start: 1px solid black;}
     </style>
+
+    <style>*{border:1px solid red;}</style>
+
+    <link rel="stylesheet" href="./css/style.css">
+
 </head>
 
 <body>
@@ -27,6 +32,40 @@
             <input type="button" id="btn_reload" value="Recargar">
         </div>
         <br>
+
+        <div class="edit-box-container">
+            
+            <div class="edit-box-title">
+                <h2> Create your own box! </h2>
+            </div>
+            
+            <div class="edit-box-close-btn">
+                <input type="button" id="btn_close_edit_box" value="X">
+            </div>
+            
+            <div class="event-selection-txt">
+                <h3> Select the event type </h3>
+            </div>
+
+            <div class="event-selection-input-list">
+                
+                <input autocomplete="off" list="event-types" id="event-type-selection-list"
+                name="event-type-selection-list" placeholder="Select an event type">
+
+                <datalist id="event-types">
+                    <option value="RACER-EVENT">RACER-EVENT</option>
+                    <option value="RACER-EVENT-RACER">RACER-EVENT-RACER</option>
+                    <option value="TEAM-EVENT">TEAM-EVENT</option>
+                    <option value="LAP-EVENT">LAP-EVENT</option>
+                    <option value="TURN-EVENT">TURN-EVENT</option>
+                    <option value="AMOUNT-EVEN">AMOUNT-EVENT</option>
+                    <option value="RANDOM-EVENT">RANDOM-EVENT</option>
+                </datalist>
+
+            </div>
+
+            <div class="event-type-related-container"></div>
+        </div>
 
     </main>
 

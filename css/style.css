@@ -1,0 +1,22 @@
+.edit-box-container {  display: grid;
+  grid-template-columns: 0.3fr 2.5fr 0.3fr;
+  grid-template-rows: 0.5fr 0.3fr 0.3fr 2.9fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". edit-box-title edit-box-close-btn"
+    ". event-selection-txt ."
+    ". event-selection-input-list ."
+    ". event-type-related-container .";
+}
+
+.edit-box-title { grid-area: edit-box-title; }
+
+.edit-box-close-btn { grid-area: edit-box-close-btn; }
+
+.event-selection-txt { grid-area: event-selection-txt; }
+
+.event-selection-input-list { grid-area: event-selection-input-list; }
+
+.event-type-related-container { grid-area: event-type-related-container; }
+
