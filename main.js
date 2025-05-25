@@ -1,6 +1,8 @@
 /* IMPORTACIÓN DE FUNCIONES */
 
 import {getCollectionOfRandomEvents} from "./backend/randomevents.js"
+import {CustomSelector} from "./backend/selector.js"
+import {getArrayObjectsKeyEvents, getArrayRacersObjects, getArrayTeamsObjects, getArrayTypeEventsObjects} from "./backend/staticdata.js"
 
 console.log(getCollectionOfRandomEvents(5*5))
 
@@ -37,4 +39,42 @@ btn_reload.addEventListener("click", function(event) {
     event.preventDefault(); // Prevenir el comportamiento por defecto del botón
     // Actualizar la tabla con nuevos valores aleatorios
     updateTabMainMatrix(5, 5);
+});
+
+
+// Datos para los selectores
+const eventsData = getArrayObjectsKeyEvents()
+const racersData = getArrayRacersObjects()
+const teamsData = getArrayTeamsObjects()
+
+// Variables globales para los selectores
+let selectorEvents;
+
+// Inicializar selectores cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    // Crear selector de tecnologías
+    selectorEvents = new CustomSelector('selector1', eventsData, {
+        label: 'Select the event type:',
+        placeholder: 'Choose an event type of your liking',
+        onSelectionChange: function(selection) {
+            console.log('Event selected:', selection);
+            console.log(getArrayTypeEventsObjects(selection.value));
+
+            let selectorRacers = new CustomSelector("selector2", racersData, {
+                label: 'Select a racer:',
+                placeholder: 'Choose a racer of your liking',
+                onSelectionChange: function(selection) {
+                    console.log('Racer selected:', selection);
+                }
+            })
+
+            let selectorTypesEvents = new CustomSelector("selector3", getArrayTypeEventsObjects(selection.value), {
+                label: 'Select the type of event:',
+                placeholder: 'Choose a type of event of your liking',
+                onSelectionChange: function(selection) {
+                    console.log('Type of event selected:', selection);
+                }
+            });
+        }
+    });
 });
