@@ -444,3 +444,5 @@ function randomEventSelector(event_key) {
         sendSelectedData();
     });
 }
+
+/* ################# FIN CÓDIGO DEDICADO A SELECTORES ################# */
