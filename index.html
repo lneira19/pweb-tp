@@ -11,7 +11,8 @@
         table{text-align: center;border-block-start: 1px solid black;}
     </style>
 
-    <!-- <style>*{border:1px solid red;}</style> -->
+    <style>*{border: 1px solid red;}</style>
+
 
     <link rel="stylesheet" href="./css/style.css">
 </head>
@@ -32,32 +33,41 @@
         </div>
         <br>
 
-        <div class="edit_box_container">
-            
+        <div class="container">
             <div class="edit_box_title">
-                <h2> Create your own box! </h2>
+                <div class="edit_box_title_area">
+                    <h2>Create your own box!</h2>
+                </div>
             </div>
             
             <div class="edit_box_close_btn">
-                <input type="button" id="btn_close_edit_box" value="X">
+                <div class="eb_clbtn_area">
+                    <input type="button" value="X" id="btn_close_edit_box">
+                </div>
             </div>
             
-            <div class="event_selection_txt">
-                <h3> Select the event type </h3>
-            </div>
-
-            <div class="event_selection_input_list">
-                
+            <div class="edit_box_selectors">
                 <div id="selector1"></div>
 
                 <div id="selector2"></div>
 
                 <div id="selector3"></div>
 
+                <div id="selector4"></div>
+
+                <div id="selector5"></div>
             </div>
             
+            <div class="edit_box_confirm_btn">
+                <div class="edit_box_confirm_btn_area" id="edit_box_confirm_btn_area">
+                    <!-- <input type="button" id="btn_edit_box_confirm" value="Confirm"> -->
+                </div>
+            </div>
         </div>
+        
 
+        
+    
     </main>
 
     <footer>

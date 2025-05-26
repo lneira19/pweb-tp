@@ -1,22 +1,51 @@
-.edit_box_container {  display: grid;
+.container {  display: grid;
   grid-template-columns: 0.3fr 2.5fr 0.3fr;
-  grid-template-rows: 0.5fr 0.3fr 0.3fr 2.9fr;
+  grid-template-rows: 0.05fr 0.2fr .05fr;
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas:
     ". edit_box_title edit_box_close_btn"
-    ". event_selection_txt ."
-    ". event_selection_input_list ."
-    ". event_type_related_container .";
+    ". edit_box_selectors ."
+    ". edit_box_confirm_btn .";
+  background-color: rgb(255, 238, 0);
 }
 
-.edit_box_title { grid-area: edit_box_title; }
+.edit_box_title {  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". edit_box_title_area .";
+  grid-area: edit_box_title;
+}
 
-.edit_box_close_btn{ grid-area: edit_box_close_btn; }
+.edit_box_title_area { grid-area: edit_box_title_area; }
 
-.event_selection_txt { grid-area: event_selection_txt; }
+.edit_box_close_btn {  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". . ."
+    ". eb_clbtn_area ."
+    ". . .";
+  grid-area: edit_box_close_btn;
+}
 
-.event_selection_input_list { grid-area: event_selection_input_list; }
+.eb_clbtn_area { grid-area: eb_clbtn_area; }
 
-.event_type_related_container { grid-area: event_type_related_container; }
+.edit_box_selectors { grid-area: edit_box_selectors; }
 
+.edit_box_confirm_btn {  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". edit_box_confirm_brn_area .";
+  grid-area: edit_box_confirm_btn;
+}
+
+.edit_box_confirm_btn_area { grid-area: edit_box_confirm_brn_area; }
