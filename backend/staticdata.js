@@ -3,6 +3,37 @@
 import dataJSON from "../static/data.json" with { type: "json" }
 import eventsJSON from "../static/events.json" with { type: "json" }
 
+// Función para obtener la siguiente etapa de la competencia
+
+export function getNextStage(){
+    // Esta función obtiene la siguiente etapa de la competencia
+    // La etapa se obtiene a partir de la fecha de inicio y la fecha de fin
+    // La fecha de fin es 4 días después de la fecha de inicio
+
+    let obj_stages = dataJSON["stages"]
+
+    let arr_enddates = obj_stages.map((stage) => 
+        Date.parse(stage["startdate"]) + 4*24*60*60*1000
+    )
+
+    let arr_diff_dates = arr_enddates.map((enddate) => {
+        
+        let diff = enddate - Date.now()
+        
+        if (diff < 0){
+            diff = 0
+        }
+
+        return diff
+    })
+
+    let stage_index = arr_diff_dates.findIndex((diff) => diff > 0)
+
+    let obj_next_stage = obj_stages.at(stage_index)
+
+    return obj_next_stage
+}
+
 // FUNCIONES PARA OBTENER EL ARRAY DE OBJETOS PARA LOS SELECTORES
 
 // Array de objetos de tipos de eventos
@@ -65,5 +96,3 @@ export function getArrayTypeEventsObjects(event_key) {
 
     return arrayObjectsEvents;
 }
-
-console.log(getArrayObjectsKeyEvents())
