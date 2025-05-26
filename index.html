@@ -8,12 +8,9 @@
     <style>
         h1{text-align: center;}
         h3{text-align: center;}
-        table{text-align: center;border-block-start: 1px solid black;}
     </style>
 
-    <style>*{border: 1px solid red;}</style>
-
-
+    <!-- <style>*{border: 1px solid red;}</style> -->
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
@@ -25,13 +22,21 @@
     
     <main>
         
-        <h3> Cross the grid! </h3>
-        <table id="tab_main_matrix"></table>
+        <div class="table_container">
+            <div class="tab_main_matrix_title_area">
+                <h3> Cross the grid! </h3>
+            </div>
 
-        <div>
-            <input type="button" id="btn_reload" value="Recargar">
+            <div class="tab_main_matrix_area">
+                <table id="tab_main_matrix"></table>
+            </div>
+
+            <div class="tab_main_matrix_btns_area">
+                <input type="button" id="btn_reload" value="Recargar">
+            </div>
         </div>
-        <br>
+
+        
 
         <div class="container">
             <div class="edit_box_title">

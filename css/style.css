@@ -1,3 +1,8 @@
+body {
+  font-family: "Gill Sans", sans-serif;
+}
+
+
 .container {  display: grid;
   grid-template-columns: 0.3fr 2.5fr 0.3fr;
   grid-template-rows: 0.05fr 0.2fr .05fr;
@@ -49,3 +54,52 @@
 }
 
 .edit_box_confirm_btn_area { grid-area: edit_box_confirm_brn_area; }
+
+
+/* .table-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+} */
+
+.table_container {  display: grid;
+  grid-template-columns: 0.05fr 1fr 0.05fr;
+  grid-template-rows: 0.05fr 1fr 0.05fr;
+  grid-auto-columns: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". tab_main_matrix_title_area ."
+    ". tab_main_matrix_area ."
+    ". tab_main_matrix_btns_area .";
+  height: 700px;
+}
+
+.tab_main_matrix_area { 
+  grid-area: tab_main_matrix_area;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.tab_main_matrix_btns_area {
+  grid-area: tab_main_matrix_btns_area;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.tab_main_matrix_title_area {
+  grid-area: tab_main_matrix_title_area;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+td {
+    width: 15%; /* Ajusta este valor para cambiar el tamaño de las celdas */
+    height: 15%; /* Mismo valor que width para celdas cuadradas */
+    border: 1px solid #000;
+    text-align: center;
+    padding: 0;
+}
