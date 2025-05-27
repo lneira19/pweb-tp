@@ -200,7 +200,7 @@ body {
   font-size: 12px;
   font-weight: bold;
   transition: background-color 0.2s ease;
-  background-color: #528eff;
+  background-color: #4CAF50;
 }
 
 .btn_block_matrix_input:hover {

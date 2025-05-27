@@ -639,7 +639,7 @@ function randomEventSelector(event_key) {
 
 /* ################# FIN CÓDIGO DEDICADO A SELECTORES ################# */
 
-/* ################# CÓDIGO DEDICADO BOX CELLS ################# */
+/* ################# CÓDIGO DEDICADO A BOX CELLS ################# */
 let selectedCellForEdit = null;
 
 /* 
@@ -823,7 +823,7 @@ function setupEventListeners(container, cellId) {
         edit_box_alert.innerHTML = ""; // Limpiar el mensaje de alerta
     });
 }
-/* ################# FIN CÓDIGO DEDICADO BOX CELLS ################# */
+/* ################# FIN CÓDIGO DEDICADO A BOX CELLS ################# */
 
 /* ################# CÓDIGO DEDICADO A EDIT BOX CLOSE BTN ################# */
 let btn_close_edit_box = document.getElementById("btn_close_edit_box");
@@ -858,3 +858,58 @@ btn_close_edit_box.addEventListener("click", function() {
 });
 
 /* ################# FIN CÓDIGO DEDICADO A EDIT BOX CLOSE BTN ################# */
+
+/* ################# CÓDIGO DEDICADO A BLOCK GRID BTN ################# */
+let btn_block_matrix_input = document.getElementById("btn_block_matrix_input");
+
+function toggleBlockGrid() {
+    let status = btn_block_matrix_input.getAttribute("status")
+}
+
+btn_block_matrix_input.addEventListener("click", function() {
+    let status = btn_block_matrix_input.getAttribute("status");
+
+    if (status === "not-blocked") {
+        btn_block_matrix_input.setAttribute("status", "blocked");
+        btn_block_matrix_input.value = "Unblock grid";
+        btn_block_matrix_input.style.backgroundColor = "#FF9800"; // Cambiar el color del botón a naranja
+        
+        btn_block_matrix_input.innerHTML = "Unblock grid"; // Cambiar el texto del botón
+
+        // Deshabilitar todos los botones de edicion de las celdas
+        let all_btn_edit = document.querySelectorAll("#btn_edit");
+        all_btn_edit.forEach(btn => {
+            btn.disabled = true; // Deshabilitar los botones de edición
+            btn.style.opacity = '0.5'; // Cambiar la opacidad para indicar que están deshabilitados
+        });
+
+        // Deshabilitar todos los botones de eliminar de las celdas
+        let all_btn_delete = document.querySelectorAll("#btn_delete");
+        all_btn_delete.forEach(btn => {
+            btn.disabled = true; // Deshabilitar los botones de eliminación
+            btn.style.opacity = '0.5'; // Cambiar la opacidad para indicar que están deshabilitados
+        });
+
+        console.log("Grid blocked");
+    } else if (status === "blocked") {
+        btn_block_matrix_input.setAttribute("status", "not-blocked");
+        btn_block_matrix_input.value = "Block grid";
+        btn_block_matrix_input.style.backgroundColor = "#4CAF50"; // Cambiar el color del botón a verde
+
+        // Habilitar todos los botones de edicion de las celdas
+        let all_btn_edit = document.querySelectorAll("#btn_edit");
+        all_btn_edit.forEach(btn => {
+            btn.disabled = false; // Habilitar los botones de edición
+            btn.style.opacity = '1'; // Restaurar la opacidad
+        });
+
+        // Habilitar todos los botones de eliminar de las celdas
+        let all_btn_delete = document.querySelectorAll("#btn_delete");
+        all_btn_delete.forEach(btn => {
+            btn.disabled = false; // Habilitar los botones de eliminación
+            btn.style.opacity = '1'; // Restaurar la opacidad
+        });
+
+        console.log("Grid unblocked");
+    }
+});
