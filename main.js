@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Creación de botón de confirmación
             const btn_edit_box_confirm = document.createElement("button");
             btn_edit_box_confirm.id = "btn_edit_box_confirm";
-            btn_edit_box_confirm.textContent = "Confirm Selection";
+            btn_edit_box_confirm.textContent = "Confirm selection";
             btn_edit_box_confirm.className = "btn_edit_box_confirm";
             edit_box_confirm_btn_area.appendChild(btn_edit_box_confirm);
 

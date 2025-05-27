@@ -143,11 +143,69 @@ body {
   width: 100%;
 }
 
-.tab_main_matrix_btns_area {
+/* .tab_main_matrix_btns_area {
   grid-area: tab_main_matrix_btns_area;
   display: flex;
   justify-content: center;
   width: 100%;
+} */
+
+.tab_main_matrix_btns_area {
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  grid-template-rows: 1fr; 
+  gap: 0px 0px; 
+  grid-template-areas: 
+    "random_btn block_matrix_btn"; 
+  grid-area: tab_main_matrix_btns_area;
+  padding-top: 10px;
+  padding-bottom: 10px; 
+}
+
+.random_btn { grid-area: random_btn;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.block_matrix_btn { grid-area: block_matrix_btn;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn_reload_input {
+  width: 150px;
+  height: 30px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+  background-color: #528eff;
+}
+
+.btn_reload_input:hover {
+  opacity: 0.8;
+  background-color: #2d69eb;
+}
+
+.btn_block_matrix_input {
+  width: 150px;
+  height: 30px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+  background-color: #528eff;
+}
+
+.btn_block_matrix_input:hover {
+  opacity: 0.8;
+  background-color: #2d69eb;
 }
 
 .tab_main_matrix_title_area {
