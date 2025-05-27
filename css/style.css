@@ -56,13 +56,11 @@ body {
 .close_btn_area {
   grid-area: close_btn_area;
   display: flex;
-  align-items: center;
-  /* Colocar botón arriba a la derecha */
-  justify-content: flex-end;
+  justify-content: right;
   padding-right: 20px;
+  padding-top: 20px;
   /* Asegurar que el botón no se desplace */
   position: relative;
-  top: -20px; /* Ajustar según sea necesario */
 }
 
 .btn_close_edit_box{
@@ -84,13 +82,20 @@ body {
 
 .edit_box_selectors_area {
   grid-area: edit_box_selectors_area;
-  padding: 20px;
+  /* padding: 20px; */
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .confirm_btn_area {
   grid-area: confirm_btn_area;
   display: flex;
   justify-content: center;
+  align-items: center;
+  /* padding: 20px; */
+  /* padding-top: 10px; */
+  padding-bottom: 10px;
+  
 }
 
 .btn_edit_box_confirm{
