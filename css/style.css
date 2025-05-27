@@ -2,7 +2,7 @@ body {
   font-family: "Gill Sans", sans-serif;
 }
 
-
+/* CONFIGURACIÓN DE LA EDIT BOX */
 .container {  display: grid;
   grid-template-columns: 0.3fr 2.5fr 0.3fr;
   grid-template-rows: 0.05fr 0.2fr .05fr;
@@ -12,7 +12,7 @@ body {
     ". edit_box_title edit_box_close_btn"
     ". edit_box_selectors ."
     ". edit_box_confirm_btn .";
-  background-color: rgb(255, 238, 0);
+  background-color: rgb(0, 238, 255);
 }
 
 .edit_box_title {  display: grid;
@@ -56,6 +56,8 @@ body {
 .edit_box_confirm_btn_area { grid-area: edit_box_confirm_brn_area; }
 
 
+/* CONFIGURACIÓN DE LA MAIN MATRIX  */
+
 /* .table-container {
     display: flex;
     justify-content: center;
@@ -72,7 +74,7 @@ body {
     ". tab_main_matrix_title_area ."
     ". tab_main_matrix_area ."
     ". tab_main_matrix_btns_area .";
-  height: 700px;
+  /* height: 700px; */
 }
 
 .tab_main_matrix_area { 
@@ -96,10 +98,82 @@ body {
   width: 100%;
 }
 
-td {
-    width: 15%; /* Ajusta este valor para cambiar el tamaño de las celdas */
-    height: 15%; /* Mismo valor que width para celdas cuadradas */
+/* td {
+    width: 15%; 
+    height: 15%;
     border: 1px solid #000;
     text-align: center;
     padding: 0;
+} */
+
+td {
+  border: 2px solid #202020;
+  padding: 10px;
+  width: 100px;
+  height: 100px;
+  vertical-align: top;
+  background-color: gray;
+  transition: background-color 0.3s ease;
+  border-radius: 5px;
+}
+
+/* CONFIGURACIÓN DE LA BOX */
+.container_box {  display: grid;
+  grid-template-columns: 0.05fr 1fr 0.05fr;
+  grid-template-rows: 1fr 0.1fr;
+  grid-auto-columns: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". box_text_area ."
+    ". box_btns_area .";
+  height: 100%;
+}
+
+.box_text_area {
+  grid-area: box_text_area;
+  text-align: center;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px 0;
+}
+
+.box_btns_area {  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 5%;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "check_btn_area delete_btn_area edit_btn_area";
+  grid-area: box_btns_area;
+  align-items: center;
+  justify-content: center;
+}
+
+.check_btn_area { grid-area: check_btn_area; }
+
+.delete_btn_area { grid-area: delete_btn_area; }
+
+.edit_btn_area { grid-area: edit_btn_area; }
+
+.btn {
+  width: 100%;
+  padding: 5px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
