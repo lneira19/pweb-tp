@@ -10,8 +10,63 @@ body {
   display: grid;
 }
 
-header{
+.container_header {  display: grid;
+  grid-template-columns: 0.1fr 1fr 1fr 1fr 0.1fr;
+  grid-template-rows: 0.1fr 0.1fr;
+  grid-auto-columns: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". . web_page_title_area . ."
+    ". webpage_sections_area web_page_title_area . .";
   background-color: #FF1F1F;
+
+  position: fixed; /* Fija el header */
+  top: 0; /* Asegura que esté en la parte superior */
+  left: 0; /* Asegura que esté alineado a la izquierda */
+  width: 100%; /* Asegura que ocupe todo el ancho de la pantalla */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5); /* Sombra opcional */
+  height: 50px; /* Altura del header */
+}
+
+.web_page_title_area {
+  grid-area: web_page_title_area;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.webpage_sections_area {
+  grid-area: webpage_sections_area;
+  align-items: left;
+  padding-bottom: 5px;
+}
+
+.section_input {
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+  background-color: #F1F5F9;
+
+  background-color: #FF1F1F;
+  border: none;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.section_input:hover {
+  background-color: #FF4C4C;
+  color: white;
+}
+
+main {
+  margin-top: 50px; /* Mismo valor que la altura del header */
 }
 
 /* ################### CONFIGURACIÓN DEL EDIT BOX CONTAINER ###################*/
@@ -39,7 +94,7 @@ header{
   grid-area: edit_box_containter_area;
   border-radius: 5px;
   background-color: #ADB6C2;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .edit_box_title_btn_area {  display: grid;

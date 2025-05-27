@@ -843,8 +843,7 @@ btn_close_edit_box.addEventListener("click", function() {
     document.getElementById("container_edit_box").style.display = "none"; // Ocultar el contenedor de edición
 
     recolorCells()
-    selectedCell.style.transition = 'background-color 0.3s ease'
-
+    
     const seccion = document.getElementById('table_container');
     seccion.scrollIntoView({ 
         behavior: 'smooth' // Desplazamiento suave
@@ -923,3 +922,29 @@ btn_block_matrix_input.addEventListener("click", function() {
 });
 
 /* ################# FIN CÓDIGO DEDICADO A BLOCK GRID BTN ################# */
+
+
+/*  ################# CÓDIGO DEDICADO A SECTION BTNS #################*/
+let btn_to_grill = document.getElementById("btn_to_grill");
+let btn_to_custom_grill = document.getElementById("btn_to_custom_grill");
+let btn_to_circuit = document.getElementById("btn_to_circuit");
+
+btn_to_grill.addEventListener("click", function() {
+    
+    const seccion = document.getElementById('table_container');
+    seccion.scrollIntoView({ 
+        behavior: 'smooth' // Desplazamiento suave
+    });
+})
+
+btn_to_custom_grill.addEventListener("click", function() {
+    
+    document.getElementById("container_edit_box").style.display = "grid";
+
+    const seccion = document.getElementById('container_edit_box');
+    seccion.scrollIntoView({ 
+        behavior: 'smooth' // Desplazamiento suave
+    });
+})
+
+console.log(getNextStage());

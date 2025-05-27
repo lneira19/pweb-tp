@@ -14,19 +14,29 @@
 
 <body>
     <header>
-        <h1>FORMULA B1NGO</h1>
-        <h2> <i>The pinnacle of motorbingo</i></h2>
+        <div class="container_header">
+            <div class="web_page_title_area">
+                FORMULA B1NGO
+            </div>
+            <div class="webpage_sections_area">
+                <input type="button" id="btn_to_grill" class="section_input" value="Grid">
+                <input type="button" id="btn_to_custom_grill" class="section_input" value="Custom grid">
+                <input type="button" id="btn_to_circuit" class="section_input" value="Circuit">
+            </div>
+        </div>
+
     </header>
     
     <main>
-        
+        <h2> <i>The pinnacle of motorbingo</i></h2>
+
         <!-- MATRZ PRINCIPAL -->
         <div class="table_container" id="table_container">
             <div class="tab_main_matrix_title_area">
                 <h3> Cross the grid! </h3>
             </div>
 
-            <div class="tab_main_matrix_area">
+            <div class="tab_main_matrix_area" id="tab_main_matrix_area">
                 <table id="tab_main_matrix"></table>
             </div>
 
