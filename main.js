@@ -32,6 +32,33 @@ let cell_colours = {
 };
 
 /* FUNCIONES DOCUMENT */
+function recolorCells() {
+    // Poner el borde original de las celdas a las demás
+    let allCells = document.querySelectorAll("td");
+    
+    let i = 0
+    allCells.forEach(cell => {
+        cell.style.border = '2px solid #202020'; // Borde original
+        
+        let cellState = arr_cells_states.at(i); // Obtener el estado de la celda
+
+        if (cellState === 'checked') {
+            cell.style.backgroundColor = cell_colours["checked"]; // Cambiar el borde a verde
+        }
+        else if (cellState === 'unchecked') {
+            cell.style.backgroundColor = cell_colours["unchecked"]; // Cambiar el borde a rojo
+        }
+        else if (cellState === 'default') {
+            cell.style.backgroundColor = cell_colours["default"]; // Cambiar el borde a gris
+        }
+        else if (cellState === 'empty') {
+            cell.style.backgroundColor = cell_colours["empty"]; // Cambiar el borde a azul
+        }
+
+        i++;  
+    });
+}
+
 function updateTabMainMatrix(rows, cols) {
     
     //let arr_random_events = getCollectionOfRandomEvents(rows * cols)
@@ -47,21 +74,6 @@ function updateTabMainMatrix(rows, cols) {
             const cell = document.createElement("td");
             cell.id = "cell" + (i * cols + j); // Asignar un ID único a cada celda
 
-            let cellState = arr_cells_states.at(i * cols + j); // Obtener el estado de la celda
-
-            if (cellState === 'checked') {
-                cell.style.backgroundColor = cell_colours["checked"]; // Cambiar el borde a verde
-            }
-            else if (cellState === 'unchecked') {
-                cell.style.backgroundColor = cell_colours["unchecked"]; // Cambiar el borde a rojo
-            }
-            else if (cellState === 'default') {
-                cell.style.backgroundColor = cell_colours["default"]; // Cambiar el borde a gris
-            }
-            else if (cellState === 'empty') {
-                cell.style.backgroundColor = cell_colours["empty"]; // Cambiar el borde a azul
-            }
-
             const containerBox = createContainerBox(arr_events.at(i * cols + j), i * cols + j)
             cell.appendChild(containerBox); // Agregar el container_box a la celda
 
@@ -71,6 +83,8 @@ function updateTabMainMatrix(rows, cols) {
         
         tab_main_matrix.appendChild(row);
     }
+
+    recolorCells(); // Recolorear las celdas después de crear la tabla
 }
 
 /* MAIN */
@@ -789,27 +803,7 @@ function setupEventListeners(container, cellId) {
         // Poner el borde original de las celdas a las demás
         let allCells = document.querySelectorAll("td");
         
-        let i = 0
-        allCells.forEach(cell => {
-            cell.style.border = '2px solid #202020'; // Borde original
-            
-            let cellState = arr_cells_states.at(i); // Obtener el estado de la celda
-
-            if (cellState === 'checked') {
-                cell.style.backgroundColor = cell_colours["checked"]; // Cambiar el borde a verde
-            }
-            else if (cellState === 'unchecked') {
-                cell.style.backgroundColor = cell_colours["unchecked"]; // Cambiar el borde a rojo
-            }
-            else if (cellState === 'default') {
-                cell.style.backgroundColor = cell_colours["default"]; // Cambiar el borde a gris
-            }
-            else if (cellState === 'empty') {
-                cell.style.backgroundColor = cell_colours["empty"]; // Cambiar el borde a azul
-            }
-
-            i++;  
-        });
+        recolorCells(); // Recolorear las celdas antes de resaltar la seleccionada
 
         // Resaltar la celda seleccionada
         selectedCell.style.border = '3px solid #FF9800';
@@ -826,34 +820,17 @@ function setupEventListeners(container, cellId) {
 /* ################# FIN CÓDIGO DEDICADO A BOX CELLS ################# */
 
 /* ################# CÓDIGO DEDICADO A EDIT BOX CLOSE BTN ################# */
+
 let btn_close_edit_box = document.getElementById("btn_close_edit_box");
 
 btn_close_edit_box.addEventListener("click", function() {
     document.getElementById("container_edit_box").style.display = "none"; // Ocultar el contenedor de edición
 
-    // Poner el borde original de las celdas a las demás
-    let allCells = document.querySelectorAll("td");
-    
-    let i = 0
-    allCells.forEach(cell => {
-        cell.style.border = '2px solid #202020'; // Borde original
-        
-        let cellState = arr_cells_states.at(i); // Obtener el estado de la celda
+    recolorCells()
 
-        if (cellState === 'checked') {
-            cell.style.backgroundColor = cell_colours["checked"]; // Cambiar el borde a verde
-        }
-        else if (cellState === 'unchecked') {
-            cell.style.backgroundColor = cell_colours["unchecked"]; // Cambiar el borde a rojo
-        }
-        else if (cellState === 'default') {
-            cell.style.backgroundColor = cell_colours["default"]; // Cambiar el borde a gris
-        }
-        else if (cellState === 'empty') {
-            cell.style.backgroundColor = cell_colours["empty"]; // Cambiar el borde a azul
-        }
-
-        i++;  
+    const seccion = document.getElementById('table_container');
+    seccion.scrollIntoView({ 
+        behavior: 'smooth' // Desplazamiento suave
     });
 });
 
@@ -862,9 +839,6 @@ btn_close_edit_box.addEventListener("click", function() {
 /* ################# CÓDIGO DEDICADO A BLOCK GRID BTN ################# */
 let btn_block_matrix_input = document.getElementById("btn_block_matrix_input");
 
-function toggleBlockGrid() {
-    let status = btn_block_matrix_input.getAttribute("status")
-}
 
 btn_block_matrix_input.addEventListener("click", function() {
     let status = btn_block_matrix_input.getAttribute("status");
@@ -890,6 +864,14 @@ btn_block_matrix_input.addEventListener("click", function() {
             btn.style.opacity = '0.5'; // Cambiar la opacidad para indicar que están deshabilitados
         });
 
+        // Ocultar el contenedor de edición
+        document.getElementById("container_edit_box").style.display = "none"; // Ocultar el contenedor de edición
+        
+        // Recolorear las celdas
+        recolorCells()
+
+        document.getElementById("btn_reload").disabled = true; // Deshabilitar el botón de recarga
+
         console.log("Grid blocked");
     } else if (status === "blocked") {
         btn_block_matrix_input.setAttribute("status", "not-blocked");
@@ -910,6 +892,15 @@ btn_block_matrix_input.addEventListener("click", function() {
             btn.style.opacity = '1'; // Restaurar la opacidad
         });
 
+        document.getElementById("btn_reload").disabled = false; // Habilitar el botón de recarga
+
         console.log("Grid unblocked");
     }
+
+    const seccion = document.getElementById('table_container');
+    seccion.scrollIntoView({ 
+        behavior: 'smooth' // Desplazamiento suave
+    });
 });
+
+/* ################# FIN CÓDIGO DEDICADO A BLOCK GRID BTN ################# */

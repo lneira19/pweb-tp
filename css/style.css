@@ -2,7 +2,8 @@ body {
   font-family: "Gill Sans", sans-serif;
 }
 
-.container {  display: grid;
+/* ################### CONFIGURACIÓN DEL EDIT BOX CONTAINER ###################*/
+.container {  display: none;
   grid-template-columns: 1fr 540px 1fr;
   grid-template-rows: 1fr;
   grid-auto-columns: 1fr;
@@ -115,13 +116,7 @@ body {
   background-color: #2d69eb;
 }
 
-/* CONFIGURACIÓN DE LA MAIN MATRIX  */
-
-/* .table-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-} */
+/* ################### CONFIGURACIÓN DE LA GRILLA ###################*/
 
 .table_container {  display: grid;
   grid-template-columns: 0.05fr 1fr 0.05fr;
@@ -142,13 +137,6 @@ body {
   justify-content: center;
   width: 100%;
 }
-
-/* .tab_main_matrix_btns_area {
-  grid-area: tab_main_matrix_btns_area;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-} */
 
 .tab_main_matrix_btns_area {
   display: grid; 
@@ -230,7 +218,7 @@ td:hover {
   opacity: 0.9;
 }
 
-/* CONFIGURACIÓN DE LA BOX */
+/* ################### CONFIGURACIÓN DE LA BOX ###################*/
 .container_box {  display: grid;
   grid-template-columns: 0.05fr 1fr 0.05fr;
   grid-template-rows: 1fr 0.1fr;
