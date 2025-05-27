@@ -105,6 +105,7 @@ let selector4 = document.getElementById("selector4");
 let selector5 = document.getElementById("selector5");
 
 let edit_box_confirm_btn_area = document.getElementById("edit_box_confirm_btn_area")
+let edit_box_alert = document.getElementById("edit_box_alert")
 
 // Inicializar selectores cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
@@ -131,6 +132,8 @@ document.addEventListener('DOMContentLoaded', function() {
             selector3.innerHTML = ""; // Limpiar el selector3 antes de llenarlo
             selector4.innerHTML = ""; // Limpiar el selector4 antes de llenarlo
             selector5.innerHTML = ""; // Limpiar el selector5 antes de llenarlo
+
+            edit_box_alert.innerHTML = ""; // Limpiar el mensaje de alerta
 
             switch (selection.value) {
                 case 'racer-event':
@@ -211,14 +214,23 @@ function racerEventSelectors(event_key){
 
     function sendSelectedData() {
 
+        if (selectedCellForEdit === null) {
+            console.log("Please select a box to edit.");
+            edit_box_alert.innerHTML = "Please select a box to edit";
+            return
+        }
+
         if (racer && event) {
             
             if (event === "P" && position === "") {
                 console.log("Please select a position for the racer.");
+                edit_box_alert.innerHTML = "Please select a position for the racer";
                 return;
             }
             else{
-                //btn_edit_box_confirm.removeEventListener("click", sendSelectedData); // Eliminar el evento anterior para evitar duplicados
+                
+                edit_box_alert.innerHTML = ""; // Limpiar el mensaje de alerta
+
                 console.log(racer+" "+event+position)
                 arr_events[selectedCellForEdit] = racer+" "+event+position; // Actualizar el texto de la celda seleccionada
                 
@@ -234,6 +246,7 @@ function racerEventSelectors(event_key){
         }
         else {
             console.log("Please select a racer and an event type.")
+            edit_box_alert.innerHTML = "Please select a racer and an event type.";
         }
     }
 
@@ -279,7 +292,16 @@ function racerEventRacerSelector(event_key) {
 
 
     function sendSelectedData() {
+        if (selectedCellForEdit === null) {
+            console.log("Please select a box to edit.");
+            edit_box_alert.innerHTML = "Please select a box to edit";
+            return
+        }
+
+
         if (racer1 && event && racer2) {
+            edit_box_alert.innerHTML = ""; // Limpiar el mensaje de alerta
+
             console.log(racer1 + " " + event + " " + racer2);
             
             arr_events[selectedCellForEdit] = racer1 + " " + event + " " + racer2; // Actualizar el texto de la celda seleccionada
@@ -295,6 +317,7 @@ function racerEventRacerSelector(event_key) {
 
         } else {
             console.log("Please select both racers and an event type.");
+            edit_box_alert.innerHTML = "Please select both racers and an event type.";
         }
     }
 
@@ -330,7 +353,16 @@ function teamEventSelectors(event_key) {
     btn_edit_box_confirm.addEventListener("click", function(e) {
         e.preventDefault()
 
+        if (selectedCellForEdit === null) {
+            console.log("Please select a box to edit.");
+            edit_box_alert.innerHTML = "Please select a box to edit";
+            return
+        }
+
         if (team && event) {
+            
+            edit_box_alert.innerHTML = ""; // Limpiar el mensaje de alerta
+
             console.log(team + " " + event);
 
             arr_events[selectedCellForEdit] = team + " " + event // Actualizar el texto de la celda seleccionada
@@ -346,6 +378,7 @@ function teamEventSelectors(event_key) {
 
         } else {
             console.log("Please select a team and an event type.");
+            edit_box_alert.innerHTML = "Please select a team and an event type.";
         }
     });
 }
@@ -439,7 +472,16 @@ function lapOrTurnEventSelector(event_key){
     })
 
     function sendSelectedData() {
+        
+        if (selectedCellForEdit === null) {
+            console.log("Please select a box to edit.");
+            edit_box_alert.innerHTML = "Please select a box to edit";
+            return
+        }
+
         if (type && type_value && event) {
+            edit_box_alert.innerHTML = ""; // Limpiar el mensaje de alerta
+
             console.log(type + " " + type_value + " " + event);
 
             arr_events[selectedCellForEdit] = type + " " + type_value + " " + event // Actualizar el texto de la celda seleccionada
@@ -455,6 +497,7 @@ function lapOrTurnEventSelector(event_key){
 
         } else {
             console.log("Please select a type, a value and an event type.");
+            edit_box_alert.innerHTML = "Please select a type, a value and an event type.";
         }
     }
 
@@ -497,7 +540,17 @@ function amountEventSelector(event_key) {
     });
 
     function sendSelectedData() {
+        if (selectedCellForEdit === null) {
+            console.log("Please select a box to edit.");
+            edit_box_alert.innerHTML = "Please select a box to edit";
+            return
+        }
+
+
         if (amount && event) {
+            
+            edit_box_alert.innerHTML = ""; // Limpiar el mensaje de alerta
+
             console.log(amount + " " + event);
 
             arr_events[selectedCellForEdit] = amount + " " + event // Actualizar el texto de la celda seleccionada
@@ -513,6 +566,7 @@ function amountEventSelector(event_key) {
 
         } else {
             console.log("Please select an amount and an event type.");
+            edit_box_alert.innerHTML = "Please select an amount and an event type.";
         }
     }
     
@@ -536,7 +590,15 @@ function randomEventSelector(event_key) {
     });
 
     function sendSelectedData() {
+        if (selectedCellForEdit === null) {
+            console.log("Please select a box to edit.");
+            edit_box_alert.innerHTML = "Please select a box to edit";
+            return
+        }
+
         if (event) {
+            edit_box_alert.innerHTML = ""; // Limpiar el mensaje de alerta
+
             console.log(event);
             
             arr_events[selectedCellForEdit] = event // Actualizar el texto de la celda seleccionada
@@ -552,6 +614,7 @@ function randomEventSelector(event_key) {
             });
         } else {
             console.log("Please select an event.");
+            edit_box_alert.innerHTML = "Please select an event.";
         }
     }
 
@@ -566,9 +629,6 @@ function randomEventSelector(event_key) {
 
 /* ################# CÓDIGO DEDICADO BOX CELLS ################# */
 let selectedCellForEdit = null;
-
-// Contador para IDs únicos
-let cellCounter = 0;
 
 /* 
  * Función principal para crear una celda con container_box
@@ -747,3 +807,4 @@ function setupEventListeners(container, cellId) {
         });
     });
 }
+/* ################# FIN CÓDIGO DEDICADO BOX CELLS ################# */
