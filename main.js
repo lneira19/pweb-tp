@@ -779,6 +779,8 @@ function setupEventListeners(container, cellId) {
     // Funcionalidad del botón Edit
     btnEdit.addEventListener('click', function() {
         
+        document.getElementById("container_edit_box").style.display = "grid";
+
         selectedCellForEdit = cellId;
 
         let selectedCell = document.getElementById("cell"+selectedCellForEdit);
@@ -822,3 +824,37 @@ function setupEventListeners(container, cellId) {
     });
 }
 /* ################# FIN CÓDIGO DEDICADO BOX CELLS ################# */
+
+/* ################# CÓDIGO DEDICADO A EDIT BOX CLOSE BTN ################# */
+let btn_close_edit_box = document.getElementById("btn_close_edit_box");
+
+btn_close_edit_box.addEventListener("click", function() {
+    document.getElementById("container_edit_box").style.display = "none"; // Ocultar el contenedor de edición
+
+    // Poner el borde original de las celdas a las demás
+    let allCells = document.querySelectorAll("td");
+    
+    let i = 0
+    allCells.forEach(cell => {
+        cell.style.border = '2px solid #202020'; // Borde original
+        
+        let cellState = arr_cells_states.at(i); // Obtener el estado de la celda
+
+        if (cellState === 'checked') {
+            cell.style.backgroundColor = cell_colours["checked"]; // Cambiar el borde a verde
+        }
+        else if (cellState === 'unchecked') {
+            cell.style.backgroundColor = cell_colours["unchecked"]; // Cambiar el borde a rojo
+        }
+        else if (cellState === 'default') {
+            cell.style.backgroundColor = cell_colours["default"]; // Cambiar el borde a gris
+        }
+        else if (cellState === 'empty') {
+            cell.style.backgroundColor = cell_colours["empty"]; // Cambiar el borde a azul
+        }
+
+        i++;  
+    });
+});
+
+/* ################# FIN CÓDIGO DEDICADO A EDIT BOX CLOSE BTN ################# */
