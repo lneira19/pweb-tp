@@ -65,9 +65,6 @@ function recolorCells() {
         else if (cellState === 'empty') {
             cell.style.backgroundColor = webp_colours["empty"]; // Cambiar el borde a azul
         }
-        else if (cellState === 'selected') {
-            cell.style.backgroundColor = webp_colours["selected"]; // Cambiar el borde a amarillo
-        }
         
         i++;  
     });
@@ -720,7 +717,7 @@ function createContainerBox(text,cellId) {
     btnEdit.type = 'button';
     btnEdit.className = 'btn';
     btnEdit.id = 'btn_edit';
-    btnEdit.value = '✏';
+    btnEdit.value = '🖉';
 
     // Ensamblar los elementos
     checkBtnArea.appendChild(btnCheck);
@@ -846,6 +843,7 @@ btn_close_edit_box.addEventListener("click", function() {
     document.getElementById("container_edit_box").style.display = "none"; // Ocultar el contenedor de edición
 
     recolorCells()
+    selectedCell.style.transition = 'background-color 0.3s ease'
 
     const seccion = document.getElementById('table_container');
     seccion.scrollIntoView({ 
@@ -865,8 +863,9 @@ btn_block_matrix_input.addEventListener("click", function() {
     if (status === "not-blocked") {
         btn_block_matrix_input.setAttribute("status", "blocked");
         btn_block_matrix_input.value = "Unblock grid";
-        btn_block_matrix_input.style.backgroundColor = "#FF9800"; // Cambiar el color del botón a naranja
-        
+        btn_block_matrix_input.style.backgroundColor = "#FFB116"; // Cambiar el color del botón a naranja
+        btn_block_matrix_input.style.color = "#000"; // Cambiar el
+
         btn_block_matrix_input.innerHTML = "Unblock grid"; // Cambiar el texto del botón
 
         // Deshabilitar todos los botones de edicion de las celdas
@@ -895,7 +894,8 @@ btn_block_matrix_input.addEventListener("click", function() {
     } else if (status === "blocked") {
         btn_block_matrix_input.setAttribute("status", "not-blocked");
         btn_block_matrix_input.value = "Block grid";
-        btn_block_matrix_input.style.backgroundColor = "#4CAF50"; // Cambiar el color del botón a verde
+        btn_block_matrix_input.style.backgroundColor = webp_colours["checked"];
+        btn_block_matrix_input.style.color = "#fff"; // Cambiar el color del texto a blanco
 
         // Habilitar todos los botones de edicion de las celdas
         let all_btn_edit = document.querySelectorAll("#btn_edit");

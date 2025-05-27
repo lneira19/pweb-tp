@@ -79,7 +79,9 @@ export class CustomSelector {
                 .custom-selector-group {
                     margin-bottom: 20px;
                     position: relative;
-                    font-family: Arial, sans-serif;
+                    font-family: 'Titillium Web', sans-serif;
+                    font-weight: 600;
+                    letter-spacing: 0.1px;
                 }
 
                 .custom-selector-label {
@@ -106,11 +108,14 @@ export class CustomSelector {
                     transition: border-color 0.3s ease;
                     box-sizing: border-box;
                     min-width: 200px;
+                    font-family: 'Titillium Web', sans-serif;
+                    font-weight: 600;
+                    letter-spacing: 0.1px;
                 }
 
                 .custom-selector-input:focus {
                     outline: none;
-                    border-color: #4CAF50;
+                    border-color: #FF1F1F;
                 }
 
                 .custom-selector-input:hover {
@@ -133,6 +138,9 @@ export class CustomSelector {
                 }
 
                 .custom-options-dropdown {
+                    font-family: 'Titillium Web', sans-serif;
+                    font-weight: 600;
+                    letter-spacing: 0.1px;
                     position: absolute;
                     top: 100%;
                     left: 0;
@@ -170,7 +178,7 @@ export class CustomSelector {
                 }
 
                 .custom-option-item:hover {
-                    background-color: #f5f5f5;
+                    background-color:rgb(255, 97, 97);
                 }
 
                 .custom-option-item.selected {

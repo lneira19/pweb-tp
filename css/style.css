@@ -4,6 +4,14 @@ body {
   font-weight: 600;
   letter-spacing: 0.1px;
   background-color: #F1F5F9;
+
+  margin: 0px;
+  padding: 0px;
+  display: grid;
+}
+
+header{
+  background-color: #FF1F1F;
 }
 
 /* ################### CONFIGURACIÓN DEL EDIT BOX CONTAINER ###################*/
@@ -29,9 +37,8 @@ body {
     "edit_box_selectors_area"
     "confirm_btn_area";
   grid-area: edit_box_containter_area;
-  background-color: #f0f0f0;
   border-radius: 5px;
-  background-color: #7E8DA0;
+  background-color: #ADB6C2;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
@@ -57,8 +64,11 @@ body {
   grid-area: edit_box_alert;
   text-align: center;
   font-weight: bold;
-  color: red;
+  color: #FF1F1F;
+  background-color: rgb(255, 131, 131);
   margin: 10px 0;
+  width: 100%;
+  border-radius: 3px;
 }
 
 .close_btn_area {
@@ -137,7 +147,7 @@ body {
     ". tab_main_matrix_area ."
     ". tab_main_matrix_btns_area .";
   /* height: 700px; */
-  
+
 }
 
 .tab_main_matrix_area { 
@@ -145,6 +155,12 @@ body {
   display: flex;
   justify-content: center;
   width: 100%;
+}
+
+#tab_main_matrix{
+  background-color: #202020;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .tab_main_matrix_btns_area {
@@ -161,17 +177,22 @@ body {
 
 .random_btn { grid-area: random_btn;
   display: flex;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
+  padding-right: 70px;
 }
 
 .block_matrix_btn { grid-area: block_matrix_btn;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
+  padding-left: 70px;
 }
 
 .btn_reload_input {
+  font-family: 'Titillium Web', sans-serif;
+  letter-spacing: 0.5px;
+
   width: 150px;
   height: 30px;
   border: none;
@@ -180,15 +201,18 @@ body {
   font-size: 12px;
   font-weight: bold;
   transition: background-color 0.2s ease;
-  background-color: #528eff;
+  background-color: #14b85b;
 }
 
 .btn_reload_input:hover {
   opacity: 0.8;
-  background-color: #2d69eb;
+  background-color: #16ce66;
 }
 
 .btn_block_matrix_input {
+  font-family: 'Titillium Web', sans-serif;
+  letter-spacing: 0.5px;
+  
   width: 150px;
   height: 30px;
   border: none;
@@ -197,12 +221,13 @@ body {
   font-size: 12px;
   font-weight: bold;
   transition: background-color 0.2s ease;
-  background-color: #4CAF50;
+  color: #f0f0f0;
+  background-color: #ff0000;
 }
 
 .btn_block_matrix_input:hover {
   opacity: 0.8;
-  background-color: #2d69eb;
+  /* background-color: #2d69eb; */
 }
 
 .tab_main_matrix_title_area {
@@ -224,8 +249,8 @@ td {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-td:hover {
-  opacity: 0.9;
+td:focus {
+  background-color: #FFB116;
 }
 
 /* ################### CONFIGURACIÓN DE LA BOX ###################*/
@@ -293,6 +318,7 @@ td:hover {
   cursor: not-allowed;
 }
 /* CONFIGURACIÓN FOOTER */
+
 .footer_description_area{
   display: flex;
   justify-content: center;
@@ -300,7 +326,6 @@ td:hover {
   text-align: center;
   padding: 10px;
   background-color: #14141c;
-  border-radius: 5px;
 }
 
 .footer_description_area a {
