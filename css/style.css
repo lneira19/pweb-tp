@@ -2,63 +2,105 @@ body {
   font-family: "Gill Sans", sans-serif;
 }
 
-/* CONFIGURACIÓN DE LA EDIT BOX */
 .container {  display: grid;
-  grid-template-columns: 0.3fr 2.5fr 0.3fr;
-  grid-template-rows: 0.05fr 0.2fr .05fr;
+  grid-template-columns: 1fr 540px 1fr;
+  grid-template-rows: 1fr;
+  grid-auto-columns: 1fr;
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas:
-    ". edit_box_title edit_box_close_btn"
-    ". edit_box_selectors ."
-    ". edit_box_confirm_btn .";
+    ". edit_box_containter_area .";
+  /* height: 700px; */
 }
 
-.edit_box_title {  display: grid;
+.edit_box_containter_area {  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.15fr 1fr 0.15fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "edit_box_title_btn_area"
+    "edit_box_selectors_area"
+    "confirm_btn_area";
+  grid-area: edit_box_containter_area;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+
+.edit_box_title_btn_area {  display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas:
-    ". edit_box_title_area .";
-  grid-area: edit_box_title;
-  background-color: rgb(0, 238, 255);
+    ". edit_box_title_area close_btn_area";
+  grid-area: edit_box_title_btn_area;
 }
 
-.edit_box_title_area { grid-area: edit_box_title_area; }
-
-.edit_box_close_btn {  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    ". . ."
-    ". eb_clbtn_area ."
-    ". . .";
-  grid-area: edit_box_close_btn;
+.edit_box_title_area {
+  grid-area: edit_box_title_area;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
 
-.eb_clbtn_area { grid-area: eb_clbtn_area; }
-
-.edit_box_selectors {
-  grid-area: edit_box_selectors;
-  background-color: rgb(0, 238, 255);
+.close_btn_area {
+  grid-area: close_btn_area;
+  display: flex;
+  align-items: center;
+  /* Colocar botón arriba a la derecha */
+  justify-content: flex-end;
+  padding-right: 20px;
+  /* Asegurar que el botón no se desplace */
+  position: relative;
+  top: -20px; /* Ajustar según sea necesario */
 }
 
-.edit_box_confirm_btn {  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    ". edit_box_confirm_brn_area .";
-  grid-area: edit_box_confirm_btn;
-  background-color: rgb(0, 238, 255);
+.btn_close_edit_box{
+  width: 30px;
+  height: 30px;
+  /* padding: 5px; */
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  /* transition: background-color 0.2s ease; */
+  background-color: #ff4c4c
+}
+.btn_close_edit_box:hover {
+  opacity: 0.8;
+  background-color: #ff0000;
 }
 
-.edit_box_confirm_btn_area { grid-area: edit_box_confirm_brn_area; }
+.edit_box_selectors_area {
+  grid-area: edit_box_selectors_area;
+  padding: 20px;
+}
 
+.confirm_btn_area {
+  grid-area: confirm_btn_area;
+  display: flex;
+  justify-content: center;
+}
+
+.btn_edit_box_confirm{
+  width: 200px;
+  height: 30px;
+  border: 1px solid #528eff;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+  background-color: #528eff;
+}
+
+.btn_edit_box_confirm:hover {
+  opacity: 0.8;
+  background-color: #2d69eb;
+}
 
 /* CONFIGURACIÓN DE LA MAIN MATRIX  */
 

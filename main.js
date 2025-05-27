@@ -121,6 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const btn_edit_box_confirm = document.createElement("button");
             btn_edit_box_confirm.id = "btn_edit_box_confirm";
             btn_edit_box_confirm.textContent = "Confirm Selection";
+            btn_edit_box_confirm.className = "btn_edit_box_confirm";
             edit_box_confirm_btn_area.appendChild(btn_edit_box_confirm);
 
             console.log('Event selected:', selection);
@@ -522,7 +523,12 @@ function randomEventSelector(event_key) {
     function sendSelectedData() {
         if (event) {
             console.log(event);
+            
             arr_events[selectedCellForEdit] = event // Actualizar el texto de la celda seleccionada
+            
+            // Agregar esto en las otras funciones también
+            arr_cells_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
+            
             updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
             const seccion = document.getElementById('table_container');
