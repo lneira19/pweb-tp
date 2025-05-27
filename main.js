@@ -947,4 +947,47 @@ btn_to_custom_grill.addEventListener("click", function() {
     });
 })
 
-console.log(getNextStage());
+btn_to_circuit.addEventListener("click", function() {
+    
+    const seccion = document.getElementById('container_circuit');
+    seccion.scrollIntoView({ 
+        behavior: 'smooth' // Desplazamiento suave
+    });
+    }
+)
+
+/* CÓDIGO DEDICADO A SECCIÓN CIRCUITO */
+function updateCircuitSection() {
+    const circuit = getNextStage();
+    
+    // TEXTO
+    const circuit_title_area = document.getElementById("circuit_title_area");
+    circuit_title_area.innerHTML = circuit.name; // Actualizar el título del circuito
+
+    const circuit_country_area = document.getElementById("circuit_country_area");
+    circuit_country_area.innerHTML = circuit.country; // Actualizar el país del circuito
+
+    const laps_value = document.getElementById("laps_value");
+    laps_value.innerHTML = circuit.laps; // Actualizar el número de vueltas del circuito
+
+    const turns_value = document.getElementById("turns_value");
+    turns_value.innerHTML = circuit.turns; // Actualizar el número de curvas del circuito
+
+    const length_value = document.getElementById("length_value");
+    length_value.innerHTML = circuit["circuit-length"]+" m"; // Actualizar la longitud del circuito
+
+    const circuit_history_area = document.getElementById("circuit_history_area");
+    circuit_history_area.innerHTML = circuit.history; // Actualizar la historia del circuito
+
+    // IMAGEN
+    const circuit_img_area = document.getElementById("circuit_img_area");
+    circuit_img_area.innerHTML = ""; // Limpiar el área de imagen antes de agregar la nueva
+    const circuitImg = document.createElement("img");
+    circuitImg.src = circuit.imgsrc; // Asignar la fuente de la imagen del circuito
+    circuitImg.alt = "Circuit Image"; // Texto alternativo para la imagen
+    circuitImg.height = "300"; // Altura de la imagen
+    circuitImg.width = "500"; // Ancho de la imagen
+    circuit_img_area.appendChild(circuitImg); // Agregar la imagen al área correspondiente
+}
+
+updateCircuitSection();
