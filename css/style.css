@@ -1,5 +1,9 @@
 body {
-  font-family: "Gill Sans", sans-serif;
+  /* font-family: "Gill Sans", sans-serif; */
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+  background-color: #F1F5F9;
 }
 
 /* ################### CONFIGURACIÓN DEL EDIT BOX CONTAINER ###################*/
@@ -12,6 +16,7 @@ body {
   grid-template-areas:
     ". edit_box_containter_area .";
   /* height: 700px; */
+  padding-bottom: 20px;
 }
 
 .edit_box_containter_area {  display: grid;
@@ -26,10 +31,12 @@ body {
   grid-area: edit_box_containter_area;
   background-color: #f0f0f0;
   border-radius: 5px;
+  background-color: #7E8DA0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .edit_box_title_btn_area {  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 0.1fr 1fr 0.1fr;
   grid-template-rows: 1fr;
   gap: 0px 0px;
   grid-auto-flow: row;
@@ -74,7 +81,8 @@ body {
   font-size: 12px;
   font-weight: bold;
   /* transition: background-color 0.2s ease; */
-  background-color: #ff4c4c
+  background-color: #ff4c4c;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 .btn_close_edit_box:hover {
   opacity: 0.8;
@@ -129,6 +137,7 @@ body {
     ". tab_main_matrix_area ."
     ". tab_main_matrix_btns_area .";
   /* height: 700px; */
+  
 }
 
 .tab_main_matrix_area { 
@@ -212,6 +221,7 @@ td {
   /* background-color: gray; */
   transition: background-color 0.3s ease;
   border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 td:hover {
@@ -239,6 +249,7 @@ td:hover {
   align-items: center;
   justify-content: center;
   margin: 5px 0;
+  color: #DCE0E5;
 }
 
 .box_btns_area {  display: grid;
@@ -268,15 +279,35 @@ td:hover {
   font-size: 12px;
   font-weight: bold;
   transition: background-color 0.2s ease;
-  background-color: #a0a0a0;
+  background-color: #39516d;
+  color: #f0f0f0;
 }
 
 .btn:hover {
   opacity: 0.8;
-  background-color: #ebe977;
+  background-color: #FFB116;
 }
 
 .btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+/* CONFIGURACIÓN FOOTER */
+.footer_description_area{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  background-color: #14141c;
+  border-radius: 5px;
+}
+
+.footer_description_area a {
+  color: #6ea1ff;
+  font-weight: bold;
+  text-decoration: none;
+}
+.footer_description_area a:hover {
+  color: #b9c8e9;
 }

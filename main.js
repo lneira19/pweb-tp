@@ -7,9 +7,7 @@ import { getNextStage } from "./backend/staticdata.js"
 
 console.log(getCollectionOfRandomEvents(5*5))
 
-/* VARIABLES DEL DOCUMENTO */
-let tab_main_matrix = document.getElementById("tab_main_matrix")
-let btn_reload = document.getElementById("btn_reload")
+/* VARIABLES BACKEND */
 
 // Array para almacenar los textos de las celdas junto a inicialización
 let arr_events = getCollectionOfRandomEvents(5 * 5)
@@ -24,11 +22,24 @@ function getDefaultCellState() {
 }
 getDefaultCellState()
 
-let cell_colours = {
-    'checked': '#F44336', // Rojo
-    'unchecked': 'grey', // Verde
-    'default': 'grey', // Gris
-    'empty': "blue"
+/* VARIABLES DEL DOCUMENTO */
+let tab_main_matrix = document.getElementById("tab_main_matrix")
+let btn_reload = document.getElementById("btn_reload")
+
+let webp_colours = {
+    
+    'cell_border': "#202020",
+    'cell_border_selected': "#ECC26F",
+    
+    'checked': '#FF1F1F',
+    'unchecked': '#26394f',
+    'default': '#26394f',
+    'empty': "#5388BE",
+    'selected': "#E5AC38",
+    
+    'edit_box': "#5388be",
+    'footer': "#14141c",
+
 };
 
 /* FUNCIONES DOCUMENT */
@@ -38,23 +49,26 @@ function recolorCells() {
     
     let i = 0
     allCells.forEach(cell => {
-        cell.style.border = '2px solid #202020'; // Borde original
+        cell.style.border = '2px solid' + webp_colours["cell_border"]; // Borde original
         
         let cellState = arr_cells_states.at(i); // Obtener el estado de la celda
 
         if (cellState === 'checked') {
-            cell.style.backgroundColor = cell_colours["checked"]; // Cambiar el borde a verde
+            cell.style.backgroundColor = webp_colours["checked"]; // Cambiar el borde a verde
         }
         else if (cellState === 'unchecked') {
-            cell.style.backgroundColor = cell_colours["unchecked"]; // Cambiar el borde a rojo
+            cell.style.backgroundColor = webp_colours["unchecked"]; // Cambiar el borde a rojo
         }
         else if (cellState === 'default') {
-            cell.style.backgroundColor = cell_colours["default"]; // Cambiar el borde a gris
+            cell.style.backgroundColor = webp_colours["default"]; // Cambiar el borde a gris
         }
         else if (cellState === 'empty') {
-            cell.style.backgroundColor = cell_colours["empty"]; // Cambiar el borde a azul
+            cell.style.backgroundColor = webp_colours["empty"]; // Cambiar el borde a azul
         }
-
+        else if (cellState === 'selected') {
+            cell.style.backgroundColor = webp_colours["selected"]; // Cambiar el borde a amarillo
+        }
+        
         i++;  
     });
 }
@@ -746,7 +760,7 @@ function setupEventListeners(container, cellId) {
             this.setAttribute('data-state', 'checked')
 
             let selectedCell = document.getElementById("cell"+cellId);
-            selectedCell.style.backgroundColor = cell_colours["checked"]; // Cambiar el borde a verde
+            selectedCell.style.backgroundColor = webp_colours["checked"]; // Cambiar el borde a verde
             arr_cells_states[cellId] = 'checked'; // Actualizar el estado de la celda
 
             console.log("Setting state to checked after default...")
@@ -757,10 +771,15 @@ function setupEventListeners(container, cellId) {
 
             let selectedCell = document.getElementById("cell"+cellId);
             selectedCell.setAttribute('data_state', 'unchecked');
-            selectedCell.style.backgroundColor = cell_colours["unchecked"]; // Cambiar el borde a rojo
+            selectedCell.style.backgroundColor = webp_colours["unchecked"]; // Cambiar el borde a rojo
             arr_cells_states[cellId] = 'unchecked'; // Actualizar el estado de la celda
 
             console.log("Setting state to unchecked after checked...")
+
+            if (cellId === selectedCellForEdit) {
+                let selectedCell = document.getElementById("cell"+selectedCellForEdit);
+                selectedCell.style.backgroundColor = webp_colours["selected"]
+            }
         }
         else if (currentState === 'unchecked') {
             this.value = '☓'
@@ -768,7 +787,7 @@ function setupEventListeners(container, cellId) {
 
             let selectedCell = document.getElementById("cell"+cellId);
             selectedCell.setAttribute('data_state', 'checked');
-            selectedCell.style.backgroundColor = cell_colours["checked"];
+            selectedCell.style.backgroundColor = webp_colours["checked"];
             arr_cells_states[cellId] = 'checked'; // Actualizar el estado de la celda
 
             console.log("Setting state to checked after unchecked...")
@@ -786,7 +805,7 @@ function setupEventListeners(container, cellId) {
 
         let selectedCell = document.getElementById("cell"+cellId);
         selectedCell.setAttribute('data_state', 'empty');
-        selectedCell.style.backgroundColor = cell_colours["empty"];
+        selectedCell.style.backgroundColor = webp_colours["empty"];
         arr_cells_states[cellId] = 'empty'; // Actualizar el estado de la celda   
     });
 
@@ -800,15 +819,15 @@ function setupEventListeners(container, cellId) {
         let selectedCell = document.getElementById("cell"+selectedCellForEdit);
         console.log("Selected cell:", selectedCell);
         
-        // Poner el borde original de las celdas a las demás
-        let allCells = document.querySelectorAll("td");
         
         recolorCells(); // Recolorear las celdas antes de resaltar la seleccionada
 
         // Resaltar la celda seleccionada
-        selectedCell.style.border = '3px solid #FF9800';
-        selectedCell.style.backgroundColor = '#F5F5F5'; // Cambiar el color de fondo para resaltar
+        selectedCell.style.border = '3px solid '+webp_colours["cell_border_selected"];
+        selectedCell.style.backgroundColor = webp_colours["selected"]; // Cambiar el color de fondo para resaltar
+        selectedCell.style.transition = 'background-color 0.3s ease'; // Añadir transición suave
 
+    
         const seccion = document.getElementById('container_edit_box');
         seccion.scrollIntoView({ 
             behavior: 'smooth' // Desplazamiento suave
