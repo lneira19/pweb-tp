@@ -112,7 +112,7 @@ td {
   width: 100px;
   height: 100px;
   vertical-align: top;
-  background-color: gray;
+  /* background-color: gray; */
   transition: background-color 0.3s ease;
   border-radius: 5px;
 }
@@ -171,6 +171,7 @@ td {
 
 .btn:hover {
   opacity: 0.8;
+  background-color: #ebe977;
 }
 
 .btn:disabled {

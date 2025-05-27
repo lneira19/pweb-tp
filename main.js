@@ -11,9 +11,24 @@ console.log(getCollectionOfRandomEvents(5*5))
 let tab_main_matrix = document.getElementById("tab_main_matrix")
 let btn_reload = document.getElementById("btn_reload")
 
+// Array para almacenar los textos de las celdas junto a inicialización
 let arr_events = getCollectionOfRandomEvents(5 * 5)
 
+// Array para almacenar los estados de las celdas
+let arr_cells_states = [] 
+// Inicializar el array de estados de las celdas
+function getDefaultCellState() {
+    for (let i = 0; i < 5 * 5; i++) {
+        arr_cells_states.push('default') // Estado inicial de cada celda);
+    }
+}
+getDefaultCellState()
 
+let cell_colours = {
+    'checked': '#F44336', // Rojo
+    'unchecked': 'grey', // Verde
+    'default': 'grey' // Gris
+};
 
 /* FUNCIONES DOCUMENT */
 function updateTabMainMatrix(rows, cols) {
@@ -29,8 +44,21 @@ function updateTabMainMatrix(rows, cols) {
         
         for (let j = 0; j < cols; j++) {
             const cell = document.createElement("td");
+            cell.id = "cell" + (i * cols + j); // Asignar un ID único a cada celda
 
-            const containerBox = createContainerBox(arr_events.at(i * cols + j), "td", i * cols + j)
+            let cellState = arr_cells_states.at(i * cols + j); // Obtener el estado de la celda
+
+            if (cellState === 'checked') {
+                cell.style.backgroundColor = cell_colours["checked"]; // Cambiar el borde a verde
+            }
+            else if (cellState === 'unchecked') {
+                cell.style.backgroundColor = cell_colours["unchecked"]; // Cambiar el borde a rojo
+            }
+            else if (cellState === 'default') {
+                cell.style.backgroundColor = cell_colours["default"]; // Cambiar el borde a gris
+            }
+
+            const containerBox = createContainerBox(arr_events.at(i * cols + j), i * cols + j)
             cell.appendChild(containerBox); // Agregar el container_box a la celda
 
             //cell.textContent = arr_events.at(i * cols + j);
@@ -45,9 +73,13 @@ function updateTabMainMatrix(rows, cols) {
 updateTabMainMatrix(5, 5) // Inicializar la tabla con 5 filas y 5 columnas
 
 btn_reload.addEventListener("click", function(event) {
-    arr_events = getCollectionOfRandomEvents(5 * 5)
-
     event.preventDefault(); // Prevenir el comportamiento por defecto del botón
+    
+    arr_events = getCollectionOfRandomEvents(5 * 5)
+    
+    arr_cells_states = []; // Reiniciar el array de estados de las celdas
+    getDefaultCellState(); // Reiniciar los estados de las celdas
+    console.log(arr_cells_states)
     // Actualizar la tabla con nuevos valores aleatorios
     updateTabMainMatrix(5, 5);
 });
@@ -519,7 +551,7 @@ let cellCounter = 0;
  * @returns {HTMLElement} - El elemento container_box creado
  */
 
-function createContainerBox(text,type_of_parent,cellId) {
+function createContainerBox(text,cellId) {
     // cellCounter++;
     // const cellId = cellCounter;
 
@@ -578,10 +610,7 @@ function createContainerBox(text,type_of_parent,cellId) {
     containerBox.appendChild(boxBtnsArea);
 
     // Agregar event listeners
-    setupEventListeners(containerBox, cellId, type_of_parent);
-
-    // OJO, CAMBIAR EL TIPO DE PARENT CELL!!! CUANDO TERMINE DE ANDAR ESTO!!
-    // const parentCell = containerBox.closest('div');
+    setupEventListeners(containerBox, cellId);
 
     return containerBox;
 }
@@ -591,12 +620,11 @@ function createContainerBox(text,type_of_parent,cellId) {
  * @param {HTMLElement} container - El contenedor box
  * @param {number} cellId - ID único de la celda
  */
-function setupEventListeners(container, cellId, type_of_parent) {
+function setupEventListeners(container, cellId) {
     const btnCheck = container.querySelector('#btn_check');
     const btnDelete = container.querySelector('#btn_delete');
     const btnEdit = container.querySelector('#btn_edit');
     const textArea = container.querySelector('.box_text_area');
-    const parentCell = container.closest("div");
 
     // Funcionalidad del botón Check
     btnCheck.addEventListener('click', function() {
@@ -605,19 +633,33 @@ function setupEventListeners(container, cellId, type_of_parent) {
         if (currentState === 'default') {
             this.value = 'X'
             this.setAttribute('data-state', 'checked')
-            //parentCell.className = 'checked'
+
+            let selectedCell = document.getElementById("cell"+cellId);
+            selectedCell.style.backgroundColor = cell_colours["checked"]; // Cambiar el borde a verde
+            arr_cells_states[cellId] = 'checked'; // Actualizar el estado de la celda
+
             console.log("Setting state to checked after default...")
         }
         else if (currentState === 'checked') {
             this.value = '✓'
             this.setAttribute('data-state', 'unchecked')
-            //parentCell.className = 'unchecked'
+
+            let selectedCell = document.getElementById("cell"+cellId);
+            selectedCell.setAttribute('data_state', 'unchecked');
+            selectedCell.style.backgroundColor = cell_colours["unchecked"]; // Cambiar el borde a rojo
+            arr_cells_states[cellId] = 'unchecked'; // Actualizar el estado de la celda
+
             console.log("Setting state to unchecked after checked...")
         }
         else if (currentState === 'unchecked') {
             this.value = 'X'
             this.setAttribute('data-state', 'checked')
-            //parentCell.className = 'checked'
+
+            let selectedCell = document.getElementById("cell"+cellId);
+            selectedCell.setAttribute('data_state', 'checked');
+            selectedCell.style.backgroundColor = cell_colours["checked"]; // Cambiar el borde a verde
+            arr_cells_states[cellId] = 'checked'; // Actualizar el estado de la celda
+
             console.log("Setting state to checked after unchecked...")
         }
     });
@@ -637,13 +679,34 @@ function setupEventListeners(container, cellId, type_of_parent) {
         
         selectedCellForEdit = cellId;
 
-        // Destacar visualmente la celda seleccionada
-        // document.querySelectorAll('td').forEach(cell => {
-        //      cell.style.border = '2px solid #ddd';
-        // });
+        let selectedCell = document.getElementById("cell"+selectedCellForEdit);
+        console.log("Selected cell:", selectedCell);
         
-        console.log(`Selected cell for edit: ${cellId}`);
-        parentCell.style.border = '3px solid #FF9800';
+        // Poner el borde original de las celdas a las demás
+        let allCells = document.querySelectorAll("td");
+        
+        let i = 0
+        allCells.forEach(cell => {
+            cell.style.border = '2px solid #202020'; // Borde original
+            
+            let cellState = arr_cells_states.at(i); // Obtener el estado de la celda
+
+            if (cellState === 'checked') {
+                cell.style.backgroundColor = cell_colours["checked"]; // Cambiar el borde a verde
+            }
+            else if (cellState === 'unchecked') {
+                cell.style.backgroundColor = cell_colours["unchecked"]; // Cambiar el borde a rojo
+            }
+            else if (cellState === 'default') {
+                cell.style.backgroundColor = cell_colours["default"]; // Cambiar el borde a gris
+            }
+
+            i++;  
+        });
+
+        // Resaltar la celda seleccionada
+        selectedCell.style.border = '3px solid #FF9800';
+        selectedCell.style.backgroundColor = '#F5F5F5'; // Cambiar el color de fondo para resaltar
 
         const seccion = document.getElementById('container_edit_box');
         seccion.scrollIntoView({ 
