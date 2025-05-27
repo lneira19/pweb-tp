@@ -221,6 +221,9 @@ function racerEventSelectors(event_key){
                 //btn_edit_box_confirm.removeEventListener("click", sendSelectedData); // Eliminar el evento anterior para evitar duplicados
                 console.log(racer+" "+event+position)
                 arr_events[selectedCellForEdit] = racer+" "+event+position; // Actualizar el texto de la celda seleccionada
+                
+                arr_cells_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
+
                 updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
                 const seccion = document.getElementById('table_container');
@@ -280,6 +283,9 @@ function racerEventRacerSelector(event_key) {
             console.log(racer1 + " " + event + " " + racer2);
             
             arr_events[selectedCellForEdit] = racer1 + " " + event + " " + racer2; // Actualizar el texto de la celda seleccionada
+            
+            arr_cells_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
+
             updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
             const seccion = document.getElementById('table_container');
@@ -328,6 +334,9 @@ function teamEventSelectors(event_key) {
             console.log(team + " " + event);
 
             arr_events[selectedCellForEdit] = team + " " + event // Actualizar el texto de la celda seleccionada
+            
+            arr_cells_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
+
             updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
             const seccion = document.getElementById('table_container');
@@ -434,6 +443,9 @@ function lapOrTurnEventSelector(event_key){
             console.log(type + " " + type_value + " " + event);
 
             arr_events[selectedCellForEdit] = type + " " + type_value + " " + event // Actualizar el texto de la celda seleccionada
+            
+            arr_cells_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
+
             updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
             const seccion = document.getElementById('table_container');
@@ -489,6 +501,9 @@ function amountEventSelector(event_key) {
             console.log(amount + " " + event);
 
             arr_events[selectedCellForEdit] = amount + " " + event // Actualizar el texto de la celda seleccionada
+            
+            arr_cells_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
+
             updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
             const seccion = document.getElementById('table_container');
