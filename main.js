@@ -242,6 +242,8 @@ function racerEventSelectors(event_key){
                 seccion.scrollIntoView({ 
                     behavior: 'smooth' // Desplazamiento suave
                 });
+
+                selectedCellForEdit = null; // Reiniciar la celda seleccionada para evitar ediciones múltiples sin selección
             }
         }
         else {
@@ -315,6 +317,8 @@ function racerEventRacerSelector(event_key) {
                 behavior: 'smooth' // Desplazamiento suave
             });
 
+            selectedCellForEdit = null; // Reiniciar la celda seleccionada para evitar ediciones múltiples sin selección
+
         } else {
             console.log("Please select both racers and an event type.");
             edit_box_alert.innerHTML = "Please select both racers and an event type.";
@@ -375,6 +379,8 @@ function teamEventSelectors(event_key) {
             seccion.scrollIntoView({ 
                 behavior: 'smooth' // Desplazamiento suave
             });
+
+            selectedCellForEdit = null; // Reiniciar la celda seleccionada para evitar ediciones múltiples sin selección
 
         } else {
             console.log("Please select a team and an event type.");
@@ -495,6 +501,8 @@ function lapOrTurnEventSelector(event_key){
                 behavior: 'smooth' // Desplazamiento suave
             });
 
+            selectedCellForEdit = null; // Reiniciar la celda seleccionada para evitar ediciones múltiples sin selección
+
         } else {
             console.log("Please select a type, a value and an event type.");
             edit_box_alert.innerHTML = "Please select a type, a value and an event type.";
@@ -564,6 +572,8 @@ function amountEventSelector(event_key) {
                 behavior: 'smooth' // Desplazamiento suave
             });
 
+            selectedCellForEdit = null; // Reiniciar la celda seleccionada para evitar ediciones múltiples sin selección
+
         } else {
             console.log("Please select an amount and an event type.");
             edit_box_alert.innerHTML = "Please select an amount and an event type.";
@@ -616,6 +626,8 @@ function randomEventSelector(event_key) {
             console.log("Please select an event.");
             edit_box_alert.innerHTML = "Please select an event.";
         }
+
+        selectedCellForEdit = null; // Reiniciar la celda seleccionada para evitar ediciones múltiples sin selección
     }
 
     btn_edit_box_confirm.addEventListener("click", function(e) {
@@ -805,6 +817,8 @@ function setupEventListeners(container, cellId) {
         seccion.scrollIntoView({ 
             behavior: 'smooth' // Desplazamiento suave
         });
+
+        edit_box_alert.innerHTML = ""; // Limpiar el mensaje de alerta
     });
 }
 /* ################# FIN CÓDIGO DEDICADO BOX CELLS ################# */
