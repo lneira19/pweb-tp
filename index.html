@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formula Bingo</title>
+    <title>FORMULA B1NGO</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600;700&family=Roboto+Condensed&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Cormorant+Garamond:wght@600&family=Montserrat:wght@300&display=swap" rel="stylesheet">
 
+    <link rel="icon" href="static/imgs/favicon.ico.png" type="image/x-icon">
+    
     <!-- <style>*{border: 1px solid blue;}</style> -->
     <link rel="stylesheet" href="./css/style.css">
 
@@ -16,7 +19,12 @@
     <header>
         <div class="container_header">
             <div class="web_page_title_area">
-                FORMULA B1NGO
+                <a 
+                    href="#"
+                    id="logo"
+                    style="text-decoration: none; color: white;" >
+                    <i><span class="special_ch">F</span>ORMULA B<span class="special_ch">1</span>NGO</i>
+                </a>
             </div>
             <div class="webpage_sections_area">
                 <input type="button" id="btn_to_grill" class="section_input" value="Grid">
@@ -28,7 +36,13 @@
     </header>
     
     <main>
-        <h2> <i> -- The pinnacle of motorbingo -- </i> </h2>
+        <!-- MOTTO -->
+        <div class="container_motto">
+            <div class="motto_area">
+                <i>★ <span class="dash">ᯓ</span> The pinnacle of motorbingo ᯓ ★</i>
+            </div>
+        </div>
+
 
         <!-- MATRZ PRINCIPAL -->
         <div class="table_container" id="table_container">
@@ -50,7 +64,8 @@
             </div>
         </div>
 
-        
+        <br>
+
         <!-- SELECTORES DE INFORMACIÓN -->
         <div class="container" id="container_edit_box">
             <div class="edit_box_containter_area">
@@ -80,6 +95,8 @@
             </div>
         </div>
         
+        <br>
+
         <!-- CIRCUITO -->
 
         <div class="container_circuit" id="container_circuit">
@@ -106,6 +123,6 @@
     </footer>
 </body>
 
-<script type="module" src="./main.js"></script>
+<script type="module" src="./backend/main.js"></script>
 
 </html>

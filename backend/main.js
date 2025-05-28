@@ -1,9 +1,9 @@
 /* IMPORTACIÓN DE FUNCIONES */
 
-import {getCollectionOfRandomEvents} from "./backend/randomevents.js"
-import {CustomSelector} from "./backend/selector.js"
-import {getArrayObjectsKeyEvents, getArrayRacersObjects, getArrayTeamsObjects, getArrayTypeEventsObjects} from "./backend/staticdata.js"
-import { getNextStage } from "./backend/staticdata.js"
+import {getCollectionOfRandomEvents} from "./randomevents.js"
+import {CustomSelector} from "./selector.js"
+import {getArrayObjectsKeyEvents, getArrayRacersObjects, getArrayTeamsObjects, getArrayTypeEventsObjects} from "./staticdata.js"
+import { getNextStage } from "./staticdata.js"
 
 console.log(getCollectionOfRandomEvents(5*5))
 
