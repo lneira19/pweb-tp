@@ -31,6 +31,22 @@ body {
   z-index: 1000; /* Asegura que el header esté por encima de otros elementos */
 }
 
+/* Configuración del header para pantallas chicas */
+@media only screen and (max-width: 700px) {
+  .container_header{
+    grid-template-columns: 0.1fr 0.1fr 1fr 0.1fr 0.1fr;
+    grid-template-rows: 1fr 1fr;
+    height: 80px;
+  }
+  .web_page_title_area{
+    padding-top: 50px;
+  }
+
+  .webpage_sections_area{
+    display: none;
+  }
+}
+
 .web_page_title_area {
   grid-area: web_page_title_area;
   display: flex;
@@ -76,6 +92,12 @@ body {
 main {
    /* Mismo valor que la altura del header */
   margin-top: 50px;
+}
+
+@media only screen and (max-width: 700px) {
+  main{
+    margin-top: 80px; /* Ajusta el margen superior para pantallas chicas */
+  }
 }
 
 main {
@@ -129,7 +151,7 @@ main::after {
 /* Configuración del motto para pantallas chicas */
 @media only screen and (max-width: 700px) {
   .container_motto{
-    grid-template-rows: 200px;
+    grid-template-rows: 80px;
   }
 }
 
