@@ -888,6 +888,8 @@ btn_block_matrix_input.addEventListener("click", function() {
         recolorCells()
 
         document.getElementById("btn_reload").disabled = true; // Deshabilitar el botón de recarga
+        document.getElementById("btn_to_custom_grill").disabled = true; // Deshabilitar el botón de ir a la parrilla personalizada
+        document.getElementById("btn_to_custom_grill").style.opacity = '0.5'; // Cambiar la opacidad del botón de ir a la parrilla personalizada
 
         console.log("Grid blocked");
     } else if (status === "blocked") {
@@ -911,6 +913,8 @@ btn_block_matrix_input.addEventListener("click", function() {
         });
 
         document.getElementById("btn_reload").disabled = false; // Habilitar el botón de recarga
+        document.getElementById("btn_to_custom_grill").disabled = false; // Deshabilitar el botón de ir a la parrilla personalizada
+        document.getElementById("btn_to_custom_grill").style.opacity = '1'; // Cambiar la opacidad del botón de ir a la parrilla personalizada
 
         console.log("Grid unblocked");
     }
