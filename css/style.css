@@ -88,6 +88,136 @@ body {
   color: gold;
 }
 
+.container_header_mobile{
+  display: none; /* Oculta el header para pantallas grandes */
+}
+
+@media screen and (max-width: 700px) {
+  
+  .container_header {
+    display: none; /* Oculta el header para pantallas chicas */
+  }
+
+  .container_header_mobile {
+    display: grid;
+    grid-template-columns: 0.1fr 0.5fr 500px 0.5fr 0.1fr;
+    grid-template-rows: 1fr;
+    grid-auto-columns: 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      ". dropdown_btn_area web_page_title_area . .";
+    
+    /* height: 80px; */
+    background-color: #FF1F1F;
+
+    position: fixed; /* Fija el header */
+    top: 0; /* Asegura que esté en la parte superior */
+    left: 0; /* Asegura que esté alineado a la izquierda */
+    width: 100%; /* Asegura que ocupe todo el ancho de la pantalla */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5); /* Sombra opcional */
+    height: 80px; /* Altura del header */
+    z-index: 1000; /* Asegura que el header esté por encima de otros elementos */
+  }
+
+  .dropdown_btn_area {
+    grid-area: dropdown_btn_area;
+    justify-content: left;
+    align-items: center;
+    display: flex;
+  }
+
+  .web_page_title_area {
+    grid-area: web_page_title_area;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Botón hamburguesa */
+  .header_nav_btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 35px;
+      height: 30px;
+      position: relative;
+  }
+
+  .nav_btn_line {
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+  }
+
+  /* Animación cuando está abierto */
+  .header_nav_btn.active .nav_btn_line:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+  }
+
+  .header_nav_btn.active .nav_btn_line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .header_nav_btn.active .nav_btn_line:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+
+  /* Menú desplegable */
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #444;
+    min-width: 150px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    border-radius: 0 0 10px 10px ;
+  }
+
+  .dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background: none;
+    border: none;
+    color: white;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: 1rem;
+    border-bottom: 1px solid #555;
+
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+  }
+
+  .dropdown-item:hover {
+    background-color: #555;
+    border-radius: 0 0 10px 10px ;
+  }
+
+  .dropdown-item:last-child {
+    border-bottom: none;
+  }
+}
+
 /* ################### CONFIGURACIÓN DEL MAIN ###################*/
 main {
    /* Mismo valor que la altura del header */
@@ -476,17 +606,17 @@ td:hover {
 
 /* * Configuración de la caja de texto para pantallas chicas */
 @media screen and (max-width: 700px) {
-  .box_text_area {
-  grid-area: box_text_area;
-  text-align: center;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 5px 0;
-  color: #DCE0E5;
-  font-size: 18px;
-  letter-spacing: 0.2px;
+    .box_text_area {
+    grid-area: box_text_area;
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px 0;
+    color: #DCE0E5;
+    font-size: 16px;
+    letter-spacing: 0.2px;
   }
   
 }
@@ -682,7 +812,7 @@ td:hover {
   }
 
   .footer_description_area a {
-    font-size: 18px;
+    font-size: 22px;
   }
     
 }

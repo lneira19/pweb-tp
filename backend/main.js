@@ -993,5 +993,116 @@ function updateCircuitSection() {
     circuitImg.width = "500"; // Ancho de la imagen
     circuit_img_area.appendChild(circuitImg); // Agregar la imagen al área correspondiente
 }
-
 updateCircuitSection();
+
+/* CÓDIGO DEDICADO A BOTÓN DE NAVEGACIÓN DEL HEADER */
+function updateHeaderNavigation() {
+// Elementos del DOM
+    const header_nav_btn = document.getElementById('header_nav_btn');
+    const dropdown_menu = document.getElementById('dropdownMenu');
+    const dropdown_items = document.querySelectorAll('.dropdown-item');
+
+    // Variable para controlar el estado del menú
+    let isMenuOpen = false;
+
+    // Función para alternar el menú
+    function toggleMenu() {
+        isMenuOpen = !isMenuOpen;
+        
+        if (isMenuOpen) {
+            openMenu();
+        } else {
+            closeMenu();
+        }
+    }
+
+    // Función para abrir el menú
+    function openMenu() {
+        dropdown_menu.classList.add('show');
+        header_nav_btn.classList.add('active');
+        isMenuOpen = true;
+    }
+
+    // Función para cerrar el menú
+    function closeMenu() {
+        dropdown_menu.classList.remove('show');
+        header_nav_btn.classList.remove('active');
+        isMenuOpen = false;
+    }
+
+    // Función para mostrar indicador de acción
+    function showActionIndicator(message) {
+        actionIndicator.textContent = message;
+        actionIndicator.classList.add('show');
+        
+        setTimeout(() => {
+            actionIndicator.classList.remove('show');
+        }, 2000);
+    }
+
+    // Event listener para el botón hamburguesa
+    header_nav_btn.addEventListener('click', toggleMenu);
+
+    // Event listeners para los elementos del menú
+    dropdown_items.forEach(item => {
+        item.addEventListener('click', function() {
+            const action = this.getAttribute('data-action');
+            
+            // Aquí puedes agregar tu lógica personalizada para cada botón
+            switch(action) {
+                case 'grid':
+                    // Tu código para perfil aquí
+                    console.log('grid');
+
+                    const seccion1 = document.getElementById('table_container');
+                    seccion1.scrollIntoView({ 
+                        behavior: 'smooth' // Desplazamiento suave
+                    });
+
+                    break;
+                case 'custom-grid':
+                    // Tu código para configuración aquí
+                    console.log('custom-grid');
+                    
+                    document.getElementById("container_edit_box").style.display = "grid";
+
+                    const seccion2 = document.getElementById('container_edit_box');
+                    seccion2.scrollIntoView({ 
+                        behavior: 'smooth' // Desplazamiento suave
+                    });
+
+                    break;
+                case 'circuit':
+                    // Tu código para cerrar sesión aquí
+                    console.log('circuit');
+
+                    const seccion3 = document.getElementById('container_circuit');
+                    seccion3.scrollIntoView({ 
+                        behavior: 'smooth' // Desplazamiento suave
+                    });
+
+                    break;
+            }
+            
+            // Cerrar el menú después de hacer clic
+            closeMenu();
+        });
+    });
+
+    // Cerrar menú al hacer clic fuera de él
+    document.addEventListener('click', function(event) {
+        if (isMenuOpen && 
+            !header_nav_btn.contains(event.target) && 
+            !dropdown_menu.contains(event.target)) {
+            closeMenu();
+        }
+    });
+
+    // Cerrar menú con la tecla Escape
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && isMenuOpen) {
+            closeMenu();
+        }
+    });
+}
+updateHeaderNavigation();
