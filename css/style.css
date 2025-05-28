@@ -675,3 +675,14 @@ td:hover {
 .footer_description_area a:hover {
   color: #b9c8e9;
 }
+
+@media screen and (max-width: 700px) {
+  .footer_description_area{
+    height: 80px;
+  }
+
+  .footer_description_area a {
+    font-size: 18px;
+  }
+    
+}
