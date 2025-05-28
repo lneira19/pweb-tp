@@ -474,6 +474,23 @@ td:hover {
   color: #DCE0E5;
 }
 
+/* * Configuración de la caja de texto para pantallas chicas */
+@media screen and (max-width: 700px) {
+  .box_text_area {
+  grid-area: box_text_area;
+  text-align: center;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px 0;
+  color: #DCE0E5;
+  font-size: 18px;
+  letter-spacing: 0.2px;
+  }
+  
+}
+
 .box_btns_area {  display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr;
@@ -484,6 +501,14 @@ td:hover {
   grid-area: box_btns_area;
   align-items: center;
   justify-content: center;
+}
+
+/* Configuración de los botones de la caja para pantallas chicas */
+@media screen and (max-width: 700px) {
+  .box_btns_area {
+    display: none;
+  }
+  
 }
 
 .check_btn_area { grid-area: check_btn_area; }
