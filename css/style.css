@@ -126,6 +126,13 @@ main::after {
   background-position: top center;
 }
 
+/* Configuración del motto para pantallas chicas */
+@media only screen and (max-width: 600px) {
+  .container_motto{
+    grid-template-rows: 200px;
+  }
+}
+
 .motto_area { grid-area: motto_area;
   justify-content: center;
   align-items: center;
