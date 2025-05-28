@@ -405,6 +405,35 @@ span {
   width: 100%;
 }
 
+@media screen and (max-width: 700px) {
+  .tab_main_matrix_btns_area{
+    padding-top: 40px;
+  }
+
+  .random_btn {
+    padding-right: 40px;
+  }
+
+  .block_matrix_btn {
+    padding-left: 40px;
+  }
+
+  .btn_reload_input {
+    width: 200px;
+    height: 100px;
+    border-radius: 10px;
+    font-size: 24px;
+  }
+
+  .btn_block_matrix_input {
+    width: 200px;
+    height: 100px;
+    border-radius: 10px;
+    font-size: 24px;
+  }
+  
+}
+
 td {
   border: 2px solid #202020;
   padding: 10px;
@@ -502,6 +531,14 @@ td:hover {
   justify-content: center;
 }
 
+
+@media only screen and (max-width: 700px) {
+  .container_circuit{
+    grid-template-columns: 0.1fr 540px 0.1fr;
+  }
+}
+
+
 .circuit_title_area {
   grid-area: circuit_title_area;
   display: flex;
@@ -593,11 +630,6 @@ td:hover {
   align-items: center;
   text-align: justify;
 }
-
-
-
-
-
 
 /* CONFIGURACIÓN FOOTER */
 
