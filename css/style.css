@@ -535,7 +535,57 @@ span {
   width: 100%;
 }
 
+td {
+  border: 2px solid #202020;
+  padding: 10px;
+  width: 100px;
+  height: 100px;
+  vertical-align: top;
+  /* background-color: gray; */
+  transition: background-color 0.3s ease;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+td:hover {
+  opacity: 0.7;
+  background-color: #FFB116;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transform: scale(1.05);
+}
+
 @media screen and (max-width: 700px) {
+  .table_container {  display: grid;
+    grid-template-columns: 0.05fr 1fr 0.05fr;
+    grid-template-rows: 0.05fr 1fr 0.05fr;
+    grid-auto-columns: 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      ". tab_main_matrix_title_area ."
+      ". tab_main_matrix_area ."
+      ". tab_main_matrix_btns_area .";
+    /* height: 700px; */
+
+  }
+
+  td {
+    border: 2px solid #202020;
+    /* padding: 10px; */
+    width: 1fr;
+
+    /* La celda tomará el ancho mayor de td */
+    height: 200px;
+
+    vertical-align: top;
+    /* background-color: gray; */
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
   .tab_main_matrix_btns_area{
     padding-top: 40px;
   }
@@ -564,21 +614,7 @@ span {
   
 }
 
-td {
-  border: 2px solid #202020;
-  padding: 10px;
-  width: 100px;
-  height: 100px;
-  vertical-align: top;
-  /* background-color: gray; */
-  transition: background-color 0.3s ease;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
 
-td:hover {
-  opacity: 0.8;
-}
 
 /* ################### CONFIGURACIÓN DE LA BOX ###################*/
 .container_box {  display: grid;
