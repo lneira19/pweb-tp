@@ -1287,7 +1287,7 @@ function updateHeaderNavigation() {
                     // Tu código para perfil aquí
                     console.log('grid');
 
-                    const seccion1 = document.getElementById('table_container');
+                    const seccion1 = document.getElementById('container_motto');
                     seccion1.scrollIntoView({ 
                         behavior: 'smooth' // Desplazamiento suave
                     });
