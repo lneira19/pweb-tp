@@ -46,7 +46,7 @@
                 <!-- Menú desplegable -->
                 <div class="dropdown-menu" id="dropdownMenu">
                     <button class="dropdown-item" data-action="grid">Grid</button>
-                    <button class="dropdown-item" data-action="custom-grid">Custom grid</button>
+                    <button class="dropdown-item" id="custom_grid_nav_btn" data-action="custom-grid">Custom grid</button>
                     <button class="dropdown-item" data-action="circuit">Circuit</button>
                 </div>
 
@@ -72,7 +72,7 @@
         </div>
 
 
-        <!-- MATRZ PRINCIPAL -->
+        <!-- MATRIZ PRINCIPAL -->
         <div class="table_container" id="table_container">
             <div class="tab_main_matrix_title_area">
                 <h3> Cross the grid! </h3>
@@ -88,6 +88,26 @@
                 </div>
                 <div class="block_matrix_btn">
                     <input type="button" id="btn_block_matrix_input" class="btn_block_matrix_input" value="Block grid" status="not-blocked">
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE SELECTORES PARA CELULAR -->
+        <div class="container_mobile_box_btns" id="container_mobile_box_btns" style="display: none;">
+            <div class="mobile_box_btns_area">
+                <div class="mobile_action_btns_area">
+                    <div class="mobile_check_btn_area" id="mobile_check_btn_area">
+                        <input type="button" id="mobile_btn_check" class="mobile_btn_box" value="Check box" data-state="default">
+                    </div>
+                    <div class="mobile_delete_btn_area" id="mobile_delete_btn_area">
+                        <input type="button" id="mobile_btn_delete" class="mobile_btn_box" value="Delete box">
+                    </div>
+                    <div class="mobile_edit_btn_area" id="mobile_edit_btn_area">
+                        <input type="button" id="mobile_btn_edit" class="mobile_btn_box" value="Edit box">
+                    </div>
+                </div>
+                <div class="mobile_close_btn_area">
+                    <input type="button" id="mobile_btn_close" class="mobile_close_btn_box" value="Close">
                 </div>
             </div>
         </div>

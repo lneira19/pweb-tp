@@ -22,6 +22,8 @@ function getDefaultCellState() {
 }
 getDefaultCellState()
 
+let blocked_grid = false; // Variable para bloquear la cuadrícula
+
 /* VARIABLES DEL DOCUMENTO */
 let tab_main_matrix = document.getElementById("tab_main_matrix")
 let btn_reload = document.getElementById("btn_reload")
@@ -36,8 +38,7 @@ let webp_colours = {
     'default': '#26394f',
     'empty': "#5388BE",
     'selected': "#E5AC38",
-    
-    'edit_box': "#5388be",
+
     'footer': "#14141c",
 
 };
@@ -70,6 +71,15 @@ function recolorCells() {
     });
 }
 
+// Botón para cerrar el contenedor de botones móviles
+let mobile_btn_close = document.getElementById("mobile_btn_close");
+mobile_btn_close.addEventListener("click", function() {
+    console.log("Mobile close button clicked");
+    const container_mobile_box_btns = document.getElementById("container_mobile_box_btns");
+    container_mobile_box_btns.style.display = "none"; // Ocultar el contenedor de botones móviles
+})
+
+
 function updateTabMainMatrix(rows, cols) {
     
     //let arr_random_events = getCollectionOfRandomEvents(rows * cols)
@@ -88,7 +98,107 @@ function updateTabMainMatrix(rows, cols) {
             const containerBox = createContainerBox(arr_events.at(i * cols + j), i * cols + j)
             cell.appendChild(containerBox); // Agregar el container_box a la celda
 
-            //cell.textContent = arr_events.at(i * cols + j);
+            // setupEventListeners(
+            //     i * cols + j,
+            //     document.querySelector('#mobile_btn_check'),
+            //     document.querySelector('#mobile_btn_delete'),
+            //     document.querySelector('#mobile_btn_edit'),
+            //     containerBox.querySelector('.box_text_area')
+            // );
+
+            cell.onclick = function() {
+                let selection = i * cols + j
+                // console.log("Cell clicked:", selection);
+
+                let status = arr_cells_states.at(selection); // Obtener el estado de la celda
+                console.log("Cell status:", status);
+
+                // Mostrar div
+                if (window.matchMedia('(max-width: 700px)').matches) {
+                    // El código aquí se ejecuta si el ancho de pantalla es <= 700px
+                    console.log('Pantalla pequeña detectada');
+                
+                    const container_mobile_box_btns = document.getElementById("container_mobile_box_btns");
+                    container_mobile_box_btns.style.display = "grid"; // Ocultar el contenedor de botones móviles
+                } 
+
+                // Eliminar botón check
+                const mobile_check_btn_area = document.getElementById("mobile_check_btn_area");
+                mobile_check_btn_area.removeChild(document.querySelector('#mobile_btn_check'));
+                
+                // Eliminar botón delete
+                const mobile_delete_btn_area = document.getElementById("mobile_delete_btn_area");
+                mobile_delete_btn_area.removeChild(document.querySelector('#mobile_btn_delete'));
+
+                // Eliminar botón edit
+                const mobile_edit_btn_area = document.getElementById("mobile_edit_btn_area");
+                mobile_edit_btn_area.removeChild(document.querySelector('#mobile_btn_edit'));
+
+
+                // Crear un nuevo botón Check
+                const mobile_btn_check = document.createElement("input");
+                mobile_btn_check.type = "button";
+                mobile_btn_check.id = "mobile_btn_check";
+                mobile_btn_check.className = "mobile_btn_box";
+                mobile_btn_check.setAttribute("data-state", status);
+                if (status === 'default') {
+                    mobile_btn_check.value = "Check box"; // Valor del botón Check
+                }
+                else if (status === 'checked') {
+                    mobile_btn_check.value = "Uncheck box"; // Valor del botón Check
+                } 
+                else if (status === 'unchecked') {
+                    mobile_btn_check.value = "Check box"; // Valor del botón Check
+                }
+                else if (status === 'empty') {
+                    mobile_btn_check.value = "Check box"; // Valor del botón Check
+                    mobile_btn_check.disabled = true; // Deshabilitar el botón si la celda está vacía
+                    mobile_btn_check.style.opacity = '0.5'; // Cambiar la opacidad del botón
+                }
+
+                // Crear un nuevo botón Delete
+                const mobile_btn_delete = document.createElement("input");
+                mobile_btn_delete.type = "button";
+                mobile_btn_delete.id = "mobile_btn_delete";
+                mobile_btn_delete.className = "mobile_btn_box";
+                mobile_btn_delete.value = "Delete box"; // Valor del botón Delete
+                if (blocked_grid === true) {
+                    mobile_btn_delete.disabled = true; // Deshabilitar el botón si la cuadrícula está bloqueada
+                    mobile_btn_delete.style.opacity = '0.5'; // Cambiar la opacidad del botón
+                }
+
+                // Crear un nuevo botón Edit
+                const mobile_btn_edit = document.createElement("input");
+                mobile_btn_edit.type = "button";
+                mobile_btn_edit.id = "mobile_btn_edit";
+                mobile_btn_edit.className = "mobile_btn_box";
+                mobile_btn_edit.value = "Edit box"; // Valor del botón Edit
+                if (blocked_grid === true) {
+                    mobile_btn_edit.disabled = true; // Deshabilitar el botón si la cuadrícula está bloqueada
+                    mobile_btn_edit.style.opacity = '0.5'; // Cambiar la opacidad del botón
+                }
+
+                // Agregar los nuevos botones al área correspondiente
+                mobile_check_btn_area.appendChild(mobile_btn_check); // Agregar el nuevo botón Check
+                mobile_delete_btn_area.appendChild(mobile_btn_delete); // Agregar el nuevo botón Delete
+                mobile_edit_btn_area.appendChild(mobile_btn_edit); // Agregar el nuevo botón Edit
+
+                mobile_btn_check.addEventListener("click", function() {
+                    console.log("cell clicked:", selection);
+                })
+
+                // Hacer lo mismo con las otras celdas
+                // Y probar con setupEventListeners()
+                setupEventListeners(
+                    selection,
+                    mobile_btn_check,
+                    mobile_btn_delete,
+                    mobile_btn_edit,
+                    containerBox.querySelector('.box_text_area')
+                );
+
+            }
+
             row.appendChild(cell);
         }
         
@@ -732,7 +842,12 @@ function createContainerBox(text,cellId) {
     containerBox.appendChild(boxBtnsArea);
 
     // Agregar event listeners
-    setupEventListeners(containerBox, cellId);
+    setupEventListeners(
+        cellId,
+        containerBox.querySelector('#btn_check'),
+        containerBox.querySelector('#btn_delete'),
+        containerBox.querySelector('#btn_edit'),
+        containerBox.querySelector('.box_text_area'))
 
     return containerBox;
 }
@@ -742,33 +857,57 @@ function createContainerBox(text,cellId) {
  * @param {HTMLElement} container - El contenedor box
  * @param {number} cellId - ID único de la celda
  */
-function setupEventListeners(container, cellId) {
-    const btnCheck = container.querySelector('#btn_check');
-    const btnDelete = container.querySelector('#btn_delete');
-    const btnEdit = container.querySelector('#btn_edit');
-    const textArea = container.querySelector('.box_text_area');
+function setupEventListeners(
+    cellId,
+    btnCheck,
+    btnDelete,
+    btnEdit,
+    textArea) {
+    
+    // const btnCheck = container.querySelector('#btn_check');
+    // const btnDelete = container.querySelector('#btn_delete');
+    // const btnEdit = container.querySelector('#btn_edit');
+    // const textArea = container.querySelector('.box_text_area');
 
     // Funcionalidad del botón Check
     btnCheck.addEventListener('click', function() {
         const currentState = this.getAttribute('data-state');
+
+        console.log("Current state:", currentState);
+        console.log("Cell ID:", cellId);
         
         if (currentState === 'default') {
-            this.value = '☓'
+            
+            if (this.className === "mobile_btn_box"){
+                this.value = 'Uncheck box'; // Cambiar el valor del botón a "Uncheck box"
+            }
+            else{
+                this.value = '☓'
+            }
+
+            
             this.setAttribute('data-state', 'checked')
 
             let selectedCell = document.getElementById("cell"+cellId);
-            selectedCell.style.backgroundColor = webp_colours["checked"]; // Cambiar el borde a verde
+            selectedCell.style.backgroundColor = webp_colours["checked"];
             arr_cells_states[cellId] = 'checked'; // Actualizar el estado de la celda
 
             console.log("Setting state to checked after default...")
         }
         else if (currentState === 'checked') {
-            this.value = '✓'
+            
+            if (this.className === "mobile_btn_box"){
+                this.value = 'Check box'; // Cambiar el valor del botón a "Check box"
+            }
+            else{
+                this.value = '✓'
+            }
+
             this.setAttribute('data-state', 'unchecked')
 
             let selectedCell = document.getElementById("cell"+cellId);
             selectedCell.setAttribute('data_state', 'unchecked');
-            selectedCell.style.backgroundColor = webp_colours["unchecked"]; // Cambiar el borde a rojo
+            selectedCell.style.backgroundColor = webp_colours["unchecked"];
             arr_cells_states[cellId] = 'unchecked'; // Actualizar el estado de la celda
 
             console.log("Setting state to unchecked after checked...")
@@ -779,7 +918,15 @@ function setupEventListeners(container, cellId) {
             }
         }
         else if (currentState === 'unchecked') {
-            this.value = '☓'
+            
+            if (this.className === "mobile_btn_box"){
+                this.value = 'Uncheck box'; // Cambiar el valor del botón a "Check box"
+            }
+            else{
+                this.value = '☓'
+            }
+
+            
             this.setAttribute('data-state', 'checked')
 
             let selectedCell = document.getElementById("cell"+cellId);
@@ -789,21 +936,39 @@ function setupEventListeners(container, cellId) {
 
             console.log("Setting state to checked after unchecked...")
         }
+
+        const container_mobile_box_btns = document.getElementById("container_mobile_box_btns");
+        container_mobile_box_btns.style.display = "none"; // Ocultar el contenedor de botones móviles
     });
 
     // Funcionalidad del botón Delete
     btnDelete.addEventListener('click', function() {
+        
+        arr_events[cellId] = "Fill this cell with your prediction!"; // Limpiar el texto de la celda seleccionada
+
         textArea.textContent = "Fill this cell with your prediction!";
         btnCheck.disabled = true;
         btnCheck.style.opacity = '0.5';
         //parentCell.className = 'default';
-        btnCheck.value = '✓';
+        
+        if (this.className === "mobile_btn_box"){
+            btnCheck.value = 'Check box'; // Cambiar el valor del botón a "Delete box"
+        }
+        else{
+            btnCheck.value = '✓';
+        }
+
+        
         btnCheck.setAttribute('data-state', 'default');
 
         let selectedCell = document.getElementById("cell"+cellId);
         selectedCell.setAttribute('data_state', 'empty');
         selectedCell.style.backgroundColor = webp_colours["empty"];
         arr_cells_states[cellId] = 'empty'; // Actualizar el estado de la celda   
+        
+        const container_mobile_box_btns = document.getElementById("container_mobile_box_btns");
+        container_mobile_box_btns.style.display = "none"; // Ocultar el contenedor de botones móviles
+    
     });
 
     // Funcionalidad del botón Edit
@@ -831,6 +996,10 @@ function setupEventListeners(container, cellId) {
         });
 
         edit_box_alert.innerHTML = ""; // Limpiar el mensaje de alerta
+    
+        const container_mobile_box_btns = document.getElementById("container_mobile_box_btns");
+        container_mobile_box_btns.style.display = "none"; // Ocultar el contenedor de botones móviles
+
     });
 }
 /* ################# FIN CÓDIGO DEDICADO A BOX CELLS ################# */
@@ -860,6 +1029,9 @@ btn_block_matrix_input.addEventListener("click", function() {
     let status = btn_block_matrix_input.getAttribute("status");
 
     if (status === "not-blocked") {
+        
+        blocked_grid = true; // Marcar la cuadrícula como bloqueada
+
         btn_block_matrix_input.setAttribute("status", "blocked");
         btn_block_matrix_input.value = "Unblock grid";
         btn_block_matrix_input.style.backgroundColor = "#FFB116"; // Cambiar el color del botón a naranja
@@ -891,8 +1063,20 @@ btn_block_matrix_input.addEventListener("click", function() {
         document.getElementById("btn_to_custom_grill").disabled = true; // Deshabilitar el botón de ir a la parrilla personalizada
         document.getElementById("btn_to_custom_grill").style.opacity = '0.5'; // Cambiar la opacidad del botón de ir a la parrilla personalizada
 
+        document.getElementById("mobile_btn_delete").disabled = true; // Deshabilitar el botón de eliminar en la vista móvil
+        document.getElementById("mobile_btn_delete").style.opacity = '0.5'; // Cambiar la opacidad del botón de eliminar en la vista móvil
+
+        document.getElementById("mobile_btn_edit").disabled = true; // Deshabilitar el botón de editar en la vista móvil
+        document.getElementById("mobile_btn_edit").style.opacity = '0.5'; // Cambiar la opacidad del botón de editar en la vista móvil
+
+        document.getElementById("custom_grid_nav_btn").disabled = true; // Deshabilitar el botón de navegación a la parrilla personalizada
+        document.getElementById("custom_grid_nav_btn").style.opacity = '0.5'; // Cambiar la opacidad del botón de navegación a la parrilla personalizada
+
         console.log("Grid blocked");
     } else if (status === "blocked") {
+        
+        blocked_grid = false; // Marcar la cuadrícula como desbloqueada
+
         btn_block_matrix_input.setAttribute("status", "not-blocked");
         btn_block_matrix_input.value = "Block grid";
         btn_block_matrix_input.style.backgroundColor = webp_colours["checked"];
@@ -915,6 +1099,15 @@ btn_block_matrix_input.addEventListener("click", function() {
         document.getElementById("btn_reload").disabled = false; // Habilitar el botón de recarga
         document.getElementById("btn_to_custom_grill").disabled = false; // Deshabilitar el botón de ir a la parrilla personalizada
         document.getElementById("btn_to_custom_grill").style.opacity = '1'; // Cambiar la opacidad del botón de ir a la parrilla personalizada
+
+        document.getElementById("mobile_btn_delete").disabled = false; // Habilitar el botón de eliminar en la vista móvil
+        document.getElementById("mobile_btn_delete").style.opacity = '1'; // Restaurar la opacidad del botón de eliminar en la vista móvil
+        
+        document.getElementById("mobile_btn_edit").disabled = false; // Habilitar el botón de editar en la vista móvil
+        document.getElementById("mobile_btn_edit").style.opacity = '1'; // Restaurar la opacidad del botón de editar en la vista móvil
+
+        document.getElementById("custom_grid_nav_btn").disabled = false; // Habilitar el botón de navegación a la parrilla personalizada
+        document.getElementById("custom_grid_nav_btn").style.opacity = '1'; // Restaurar la opacidad del botón de navegación a la parrilla personalizada
 
         console.log("Grid unblocked");
     }
