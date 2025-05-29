@@ -532,7 +532,28 @@ span {
   grid-area: tab_main_matrix_title_area;
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
+}
+
+#tab_main_matrix_title {
+  /* display: none; */
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: bold;
+  letter-spacing: 0.1px;
+  font-size: 24px;
+  text-align: center;
+  padding: 15px;
+}
+
+#bingo_message {
+  display: none;
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: bold;
+  letter-spacing: 0.1px;
+  font-size: 50px;
+  text-align: center;
+  padding: 15px;
 }
 
 td {
@@ -577,7 +598,7 @@ td:hover {
     width: 1fr;
 
     /* La celda tomará el ancho mayor de td */
-    height: 200px;
+    height: 180px;
 
     vertical-align: top;
     /* background-color: gray; */
@@ -878,7 +899,7 @@ td:hover {
   
   .container_mobile_box_btns {  display: grid;
     grid-template-columns: 0.1fr 500px 0.1fr;
-    grid-template-rows: 300px;
+    grid-template-rows: 200px;
     grid-auto-columns: 1fr;
     gap: 0px 0px;
     grid-auto-flow: row;
@@ -889,7 +910,7 @@ td:hover {
 
     
     position: fixed; /* Fija el contenedor */
-    top: 10%;
+    bottom: 10%;
     left: 10%; /* Asegura que esté alineado a la izquierda */
     right: 10%;
   }
@@ -903,10 +924,10 @@ td:hover {
       "mobile_action_btns_area"
       "mobile_close_btn_area";
     grid-area: mobile_box_btns_area;
-    background-color: #ADB6C2;
+    background-color: #444444f6;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    border: #d4d4d4 5px solid;
+    border: 3px solid #202020;
     height: 100%;
   }
 
@@ -966,22 +987,25 @@ td:hover {
     letter-spacing: 0.5px;
 
     width: 150px;
-    height: 120px;
+    height: 80px;
     padding: 10px;
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
     transition: background-color 0.2s ease;
     background-color: #FF1F1F;
     color: #f0f0f0;
-    /* border: 2px solid #202020; */
+    border: 1px solid #202020;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+
   }
 
   .mobile_btn_box:hover {
     opacity: 0.8;
     background-color: #FF4C4C;
+    transform: scale(1.05);
   }
 
   .mobile_close_btn_box {
@@ -989,7 +1013,7 @@ td:hover {
     letter-spacing: 0.5px;
 
     width: 300px;
-    height: 80px;
+    height: 60px;
     border-radius: 5px;
     background-color: #292929;
     color: white;
@@ -998,10 +1022,11 @@ td:hover {
     border: none;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
   .mobile_close_btn_box:hover {
     opacity: 0.8;
-    background-color: #444444;
+    background-color: #727272;
   }
 }
 

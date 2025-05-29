@@ -98,14 +98,7 @@ function updateTabMainMatrix(rows, cols) {
             const containerBox = createContainerBox(arr_events.at(i * cols + j), i * cols + j)
             cell.appendChild(containerBox); // Agregar el container_box a la celda
 
-            // setupEventListeners(
-            //     i * cols + j,
-            //     document.querySelector('#mobile_btn_check'),
-            //     document.querySelector('#mobile_btn_delete'),
-            //     document.querySelector('#mobile_btn_edit'),
-            //     containerBox.querySelector('.box_text_area')
-            // );
-
+            
             cell.onclick = function() {
                 let selection = i * cols + j
                 // console.log("Cell clicked:", selection);
@@ -113,6 +106,7 @@ function updateTabMainMatrix(rows, cols) {
                 let status = arr_cells_states.at(selection); // Obtener el estado de la celda
                 console.log("Cell status:", status);
 
+                
                 // Mostrar div
                 if (window.matchMedia('(max-width: 700px)').matches) {
                     // El código aquí se ejecuta si el ancho de pantalla es <= 700px
@@ -120,7 +114,8 @@ function updateTabMainMatrix(rows, cols) {
                 
                     const container_mobile_box_btns = document.getElementById("container_mobile_box_btns");
                     container_mobile_box_btns.style.display = "grid"; // Ocultar el contenedor de botones móviles
-                } 
+                }
+
 
                 // Eliminar botón check
                 const mobile_check_btn_area = document.getElementById("mobile_check_btn_area");
@@ -208,19 +203,41 @@ function updateTabMainMatrix(rows, cols) {
     recolorCells(); // Recolorear las celdas después de crear la tabla
 }
 
+function checkForBingo() {
+    if (arr_cells_states.every(state => state === 'checked')) {
+        console.log("Bingo! All cells are checked.");
+        return true; // Retornar true si se ha hecho bingo
+    }
+    else {
+        console.log("Not all cells are checked yet.");
+        return false; // Retornar false si no se ha hecho bingo
+    }
+}
+
 /* MAIN */
 updateTabMainMatrix(5, 5) // Inicializar la tabla con 5 filas y 5 columnas
 
 btn_reload.addEventListener("click", function(event) {
     event.preventDefault(); // Prevenir el comportamiento por defecto del botón
     
+    let bingo = checkForBingo(); // Verificar si se ha hecho bingo
+    if (bingo) {
+        document.getElementById("tab_main_matrix_title").style.display = "grid"
+        document.getElementById("bingo_message").style.display = "none";
+    }
+
     arr_events = getCollectionOfRandomEvents(5 * 5)
     
     arr_cells_states = []; // Reiniciar el array de estados de las celdas
     getDefaultCellState(); // Reiniciar los estados de las celdas
-    console.log(arr_cells_states)
+    // console.log(arr_cells_states)
     // Actualizar la tabla con nuevos valores aleatorios
     updateTabMainMatrix(5, 5);
+
+    const seccion = document.getElementById('container_motto');
+    seccion.scrollIntoView({ 
+        behavior: 'smooth' // Desplazamiento suave
+    });
 });
 
 /* ################# CÓDIGO DEDICADO A SELECTORES ################# */
@@ -893,6 +910,18 @@ function setupEventListeners(
             arr_cells_states[cellId] = 'checked'; // Actualizar el estado de la celda
 
             console.log("Setting state to checked after default...")
+
+            
+            let bingo = checkForBingo(); // Verificar si se ha hecho bingo
+            if (bingo) {
+                document.getElementById("tab_main_matrix_title").style.display = "none"
+                document.getElementById("bingo_message").style.display = "grid"; // Mostrar mensaje de bingo
+                
+                const seccion = document.getElementById('container_motto');
+                seccion.scrollIntoView({ 
+                    behavior: 'smooth' // Desplazamiento suave
+                });
+            }
         }
         else if (currentState === 'checked') {
             
@@ -935,6 +964,17 @@ function setupEventListeners(
             arr_cells_states[cellId] = 'checked'; // Actualizar el estado de la celda
 
             console.log("Setting state to checked after unchecked...")
+
+            let bingo = checkForBingo(); // Verificar si se ha hecho bingo
+            if (bingo) {
+                document.getElementById("tab_main_matrix_title").style.display = "none"
+                document.getElementById("bingo_message").style.display = "grid"; // Mostrar mensaje de bingo
+                
+                const seccion = document.getElementById('container_motto');
+                seccion.scrollIntoView({ 
+                    behavior: 'smooth' // Desplazamiento suave
+                });
+            }
         }
 
         const container_mobile_box_btns = document.getElementById("container_mobile_box_btns");
