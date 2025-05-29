@@ -174,7 +174,7 @@ body {
     top: 100%;
     left: 0;
     background-color: #444;
-    min-width: 150px;
+    min-width: 200px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     opacity: 0;
     visibility: hidden;
@@ -206,6 +206,7 @@ body {
     font-family: 'Titillium Web', sans-serif;
     font-weight: 600;
     letter-spacing: 0.1px;
+    font-size: 24;
   }
 
   .dropdown-item:hover {
@@ -424,12 +425,31 @@ span {
   transition: background-color 0.2s ease;
   background-color: #26394f;
   color: #f0f0f0;
-  box-shadow: #14141c 0px 4px 8px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .btn_edit_box_confirm:hover {
   opacity: 0.8;
   background-color: #2d69eb;
+}
+
+@media screen and (max-width: 700px) {
+    .btn_edit_box_confirm{
+    font-family: 'Titillium Web', sans-serif;
+    letter-spacing: 0.5px;
+    border: none;
+    width: 200px;
+    height: 80px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    /* font-weight: bold; */
+    transition: background-color 0.2s ease;
+    background-color: #26394f;
+    color: #f0f0f0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+  
 }
 
 /* ################### CONFIGURACIÓN DE LA GRILLA ###################*/
@@ -500,6 +520,7 @@ span {
   font-weight: bold;
   transition: background-color 0.2s ease;
   background-color: #14b85b;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .btn_reload_input:hover {
@@ -519,8 +540,9 @@ span {
   font-size: 12px;
   font-weight: bold;
   transition: background-color 0.2s ease;
-  color: #f0f0f0;
+  color: #ffffff;
   background-color: #ff0000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .btn_block_matrix_input:hover {
@@ -624,6 +646,7 @@ td:hover {
     height: 100px;
     border-radius: 10px;
     font-size: 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   }
 
   .btn_block_matrix_input {
@@ -631,6 +654,7 @@ td:hover {
     height: 100px;
     border-radius: 10px;
     font-size: 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   }
   
 }

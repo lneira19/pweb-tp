@@ -390,7 +390,7 @@ function racerEventSelectors(event_key){
 
                 updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
-                const seccion = document.getElementById('table_container');
+                const seccion = document.getElementById('container_motto');
                 seccion.scrollIntoView({ 
                     behavior: 'smooth' // Desplazamiento suave
                 });
@@ -464,7 +464,7 @@ function racerEventRacerSelector(event_key) {
 
             updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
-            const seccion = document.getElementById('table_container');
+            const seccion = document.getElementById('container_motto');
             seccion.scrollIntoView({ 
                 behavior: 'smooth' // Desplazamiento suave
             });
@@ -527,7 +527,7 @@ function teamEventSelectors(event_key) {
 
             updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
-            const seccion = document.getElementById('table_container');
+            const seccion = document.getElementById('container_motto');
             seccion.scrollIntoView({ 
                 behavior: 'smooth' // Desplazamiento suave
             });
@@ -648,7 +648,7 @@ function lapOrTurnEventSelector(event_key){
 
             updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
-            const seccion = document.getElementById('table_container');
+            const seccion = document.getElementById('container_motto');
             seccion.scrollIntoView({ 
                 behavior: 'smooth' // Desplazamiento suave
             });
@@ -719,7 +719,7 @@ function amountEventSelector(event_key) {
 
             updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
-            const seccion = document.getElementById('table_container');
+            const seccion = document.getElementById('container_motto');
             seccion.scrollIntoView({ 
                 behavior: 'smooth' // Desplazamiento suave
             });
@@ -770,7 +770,7 @@ function randomEventSelector(event_key) {
             
             updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
-            const seccion = document.getElementById('table_container');
+            const seccion = document.getElementById('container_motto');
             seccion.scrollIntoView({ 
                 behavior: 'smooth' // Desplazamiento suave
             });
@@ -1053,7 +1053,7 @@ btn_close_edit_box.addEventListener("click", function() {
 
     recolorCells()
     
-    const seccion = document.getElementById('table_container');
+    const seccion = document.getElementById('container_motto');
     seccion.scrollIntoView({ 
         behavior: 'smooth' // Desplazamiento suave
     });
