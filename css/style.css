@@ -867,6 +867,57 @@ td:hover {
   text-align: justify;
 }
 
+/* CONFIGURACIÓN DEL HELP */
+.container_help {  display: grid;
+  grid-template-columns: 0.1fr 550px 0.1fr;
+  grid-template-rows: 1fr;
+  grid-auto-columns: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". help_area .";
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.help_area {  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "help_title_area"
+    "help_text_area";
+  grid-area: help_area;
+  background-color: lightslategray;
+  border-radius: 10px 10px 0 0;
+}
+
+.help_title_area {
+  grid-area: help_title_area;
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.help_text_area {
+  grid-area: help_text_area;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 5px;
+  padding-right: 20px;
+}
+
+#help_text_list{
+  font-size: 16px;
+  line-height: 2;
+  text-align: justify;
+}
+
+
 /* CONFIGURACIÓN FOOTER */
 
 .footer_description_area{

@@ -1165,6 +1165,7 @@ btn_block_matrix_input.addEventListener("click", function() {
 let btn_to_grill = document.getElementById("btn_to_grill");
 let btn_to_custom_grill = document.getElementById("btn_to_custom_grill");
 let btn_to_circuit = document.getElementById("btn_to_circuit");
+let btn_to_help = document.getElementById("btn_to_help");
 
 btn_to_grill.addEventListener("click", function() {
     
@@ -1192,6 +1193,14 @@ btn_to_circuit.addEventListener("click", function() {
     });
     }
 )
+
+btn_to_help.addEventListener("click", function() {
+    const seccion = document.getElementById('container_help');
+    seccion.scrollIntoView({ 
+        behavior: 'smooth' // Desplazamiento suave
+    });
+})
+/* ################# FIN CÓDIGO DEDICADO A SECTION BTNS ################# */
 
 /* CÓDIGO DEDICADO A SECCIÓN CIRCUITO */
 function updateCircuitSection() {
@@ -1263,16 +1272,6 @@ function updateHeaderNavigation() {
         isMenuOpen = false;
     }
 
-    // Función para mostrar indicador de acción
-    function showActionIndicator(message) {
-        actionIndicator.textContent = message;
-        actionIndicator.classList.add('show');
-        
-        setTimeout(() => {
-            actionIndicator.classList.remove('show');
-        }, 2000);
-    }
-
     // Event listener para el botón hamburguesa
     header_nav_btn.addEventListener('click', toggleMenu);
 
@@ -1311,6 +1310,14 @@ function updateHeaderNavigation() {
 
                     const seccion3 = document.getElementById('container_circuit');
                     seccion3.scrollIntoView({ 
+                        behavior: 'smooth' // Desplazamiento suave
+                    });
+
+                    break;
+                case 'help':
+                    
+                    const seccion4 = document.getElementById('container_help');
+                    seccion4.scrollIntoView({ 
                         behavior: 'smooth' // Desplazamiento suave
                     });
 
