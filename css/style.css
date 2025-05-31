@@ -911,12 +911,18 @@ td:hover {
   padding-right: 20px;
 }
 
-#help_text_list{
+#help_text_list_pc{
   font-size: 16px;
-  line-height: 2;
+  line-height: 3;
   text-align: justify;
 }
 
+#help_text_list_mobile { display: none; }
+  
+@media (max-width: 700px) {
+  #help_text_list_pc { display: none; }
+  #help_text_list_mobile{ display: grid; }
+}
 
 /* CONFIGURACIÓN FOOTER */
 

@@ -788,17 +788,13 @@ function randomEventSelector(event_key) {
         sendSelectedData();
     });
 }
-
 /* ################# FIN CÓDIGO DEDICADO A SELECTORES ################# */
+
+
+
 
 /* ################# CÓDIGO DEDICADO A BOX CELLS ################# */
 let selectedCellForEdit = null;
-
-/* 
- * Función principal para crear una celda con container_box
- * @param {string} text - El texto principal a mostrar en la celda
- * @returns {HTMLElement} - El elemento container_box creado
- */
 
 function createContainerBox(text,cellId) {
     // cellCounter++;
@@ -868,12 +864,6 @@ function createContainerBox(text,cellId) {
 
     return containerBox;
 }
-
-/* 
- * Configura los event listeners para los botones del container
- * @param {HTMLElement} container - El contenedor box
- * @param {number} cellId - ID único de la celda
- */
 function setupEventListeners(
     cellId,
     btnCheck,
@@ -1044,8 +1034,10 @@ function setupEventListeners(
 }
 /* ################# FIN CÓDIGO DEDICADO A BOX CELLS ################# */
 
-/* ################# CÓDIGO DEDICADO A EDIT BOX CLOSE BTN ################# */
 
+
+
+/* ################# CÓDIGO DEDICADO A EDIT BOX CLOSE BTN ################# */
 let btn_close_edit_box = document.getElementById("btn_close_edit_box");
 
 btn_close_edit_box.addEventListener("click", function() {
@@ -1058,12 +1050,13 @@ btn_close_edit_box.addEventListener("click", function() {
         behavior: 'smooth' // Desplazamiento suave
     });
 });
-
 /* ################# FIN CÓDIGO DEDICADO A EDIT BOX CLOSE BTN ################# */
+
+
+
 
 /* ################# CÓDIGO DEDICADO A BLOCK GRID BTN ################# */
 let btn_block_matrix_input = document.getElementById("btn_block_matrix_input");
-
 
 btn_block_matrix_input.addEventListener("click", function() {
     let status = btn_block_matrix_input.getAttribute("status");
@@ -1157,7 +1150,6 @@ btn_block_matrix_input.addEventListener("click", function() {
         behavior: 'smooth' // Desplazamiento suave
     });
 });
-
 /* ################# FIN CÓDIGO DEDICADO A BLOCK GRID BTN ################# */
 
 
@@ -1174,7 +1166,6 @@ btn_to_grill.addEventListener("click", function() {
         behavior: 'smooth' // Desplazamiento suave
     });
 })
-
 btn_to_custom_grill.addEventListener("click", function() {
     
     document.getElementById("container_edit_box").style.display = "grid";
@@ -1184,7 +1175,6 @@ btn_to_custom_grill.addEventListener("click", function() {
         behavior: 'smooth' // Desplazamiento suave
     });
 })
-
 btn_to_circuit.addEventListener("click", function() {
     
     const seccion = document.getElementById('container_circuit');
@@ -1193,7 +1183,6 @@ btn_to_circuit.addEventListener("click", function() {
     });
     }
 )
-
 btn_to_help.addEventListener("click", function() {
     const seccion = document.getElementById('container_help');
     seccion.scrollIntoView({ 
@@ -1202,7 +1191,10 @@ btn_to_help.addEventListener("click", function() {
 })
 /* ################# FIN CÓDIGO DEDICADO A SECTION BTNS ################# */
 
-/* CÓDIGO DEDICADO A SECCIÓN CIRCUITO */
+
+
+
+/* ################# CÓDIGO DEDICADO A SECCIÓN CIRCUITO ################# */
 function updateCircuitSection() {
     const circuit = getNextStage();
     
@@ -1236,8 +1228,12 @@ function updateCircuitSection() {
     circuit_img_area.appendChild(circuitImg); // Agregar la imagen al área correspondiente
 }
 updateCircuitSection();
+/* ################# FIN CÓDIGO DEDICADO A SECCIÓN CIRCUITO ################# */
 
-/* CÓDIGO DEDICADO A BOTÓN DE NAVEGACIÓN DEL HEADER */
+
+
+
+/* ################# CÓDIGO DEDICADO A BOTÓN DE NAVEGACIÓN DEL HEADER #################*/
 function updateHeaderNavigation() {
 // Elementos del DOM
     const header_nav_btn = document.getElementById('header_nav_btn');
