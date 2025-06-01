@@ -1,70 +1,76 @@
-/* IMPORTACIÓN DE FUNCIONES */
+/* 1. IMPORTACIÓN DE FUNCIONES */
 
 import {getCollectionOfRandomEvents} from "./randomevents.js"
 import {CustomSelector} from "./selector.js"
 import {getArrayObjectsKeyEvents, getArrayRacersObjects, getArrayTeamsObjects, getArrayTypeEventsObjects} from "./staticdata.js"
-import { getNextStage } from "./staticdata.js"
+import {getNextStage} from "./staticdata.js"
 
-console.log(getCollectionOfRandomEvents(5*5))
 
-/* VARIABLES BACKEND */
+/* 2. VARIABLES BACKEND GLOBALES: DEFINICIÓN E INCIALIZACIÓN */
 
-// Array para almacenar los textos de las celdas junto a inicialización
+// Array para almacenar los textos de las celdas junto a inicialización aleatoria
 let arr_events = getCollectionOfRandomEvents(5 * 5)
 
-// Array para almacenar los estados de las celdas
-let arr_cells_states = [] 
-// Inicializar el array de estados de las celdas
+// Array para almacenar los estados de los boxes
+let arr_boxes_states = [] 
+
+// Inicializar el array de estados de los boxes
 function getDefaultCellState() {
     for (let i = 0; i < 5 * 5; i++) {
-        arr_cells_states.push('default') // Estado inicial de cada celda);
+        // Estado inicial de cada celda)
+        arr_boxes_states.push('default') 
     }
 }
 getDefaultCellState()
 
-let blocked_grid = false; // Variable para bloquear la cuadrícula
+ // Variable para bloquear la grilla
+let blocked_grid = false;
 
-/* VARIABLES DEL DOCUMENTO */
-let tab_main_matrix = document.getElementById("tab_main_matrix")
-let btn_reload = document.getElementById("btn_reload")
-
+// Variable para almacenar colores de uso general
 let webp_colours = {
-    
     'cell_border': "#202020",
     'cell_border_selected': "#ECC26F",
-    
     'checked': '#FF1F1F',
     'unchecked': '#26394f',
     'default': '#26394f',
     'empty': "#5388BE",
     'selected': "#E5AC38",
-
     'footer': "#14141c",
-
 };
 
-/* FUNCIONES DOCUMENT */
-function recolorCells() {
+/* 3. VARIABLES DEL DOCUMENTO GLOBALES */
+
+// Grilla
+let tab_main_matrix = document.getElementById("tab_main_matrix")
+
+// Botón de recarga con valores aleatorios
+let btn_reload = document.getElementById("btn_reload")
+
+
+/* 4. FUNCIONES DOCUMENT */
+
+// Función para colorear boxes según su estado
+function recolorBoxes() {
     // Poner el borde original de las celdas a las demás
-    let allCells = document.querySelectorAll("td");
+    let allBoxes = document.querySelectorAll("td");
     
     let i = 0
-    allCells.forEach(cell => {
-        cell.style.border = '2px solid' + webp_colours["cell_border"]; // Borde original
+    allBoxes.forEach(box => {
+        box.style.border = '2px solid' + webp_colours["cell_border"]; // Borde original
         
-        let cellState = arr_cells_states.at(i); // Obtener el estado de la celda
+        let cellState = arr_boxes_states.at(i); // Obtener el estado de la celda
 
         if (cellState === 'checked') {
-            cell.style.backgroundColor = webp_colours["checked"]; // Cambiar el borde a verde
+            box.style.backgroundColor = webp_colours["checked"]; // Cambiar el borde a verde
         }
         else if (cellState === 'unchecked') {
-            cell.style.backgroundColor = webp_colours["unchecked"]; // Cambiar el borde a rojo
+            box.style.backgroundColor = webp_colours["unchecked"]; // Cambiar el borde a rojo
         }
         else if (cellState === 'default') {
-            cell.style.backgroundColor = webp_colours["default"]; // Cambiar el borde a gris
+            box.style.backgroundColor = webp_colours["default"]; // Cambiar el borde a gris
         }
         else if (cellState === 'empty') {
-            cell.style.backgroundColor = webp_colours["empty"]; // Cambiar el borde a azul
+            box.style.backgroundColor = webp_colours["empty"]; // Cambiar el borde a azul
         }
         
         i++;  
@@ -103,7 +109,7 @@ function updateTabMainMatrix(rows, cols) {
                 let selection = i * cols + j
                 // console.log("Cell clicked:", selection);
 
-                let status = arr_cells_states.at(selection); // Obtener el estado de la celda
+                let status = arr_boxes_states.at(selection); // Obtener el estado de la celda
                 console.log("Cell status:", status);
 
                 
@@ -200,11 +206,11 @@ function updateTabMainMatrix(rows, cols) {
         tab_main_matrix.appendChild(row);
     }
 
-    recolorCells(); // Recolorear las celdas después de crear la tabla
+    recolorBoxes(); // Recolorear las celdas después de crear la tabla
 }
 
 function checkForBingo() {
-    if (arr_cells_states.every(state => state === 'checked')) {
+    if (arr_boxes_states.every(state => state === 'checked')) {
         console.log("Bingo! All cells are checked.");
         return true; // Retornar true si se ha hecho bingo
     }
@@ -228,7 +234,7 @@ btn_reload.addEventListener("click", function(event) {
 
     arr_events = getCollectionOfRandomEvents(5 * 5)
     
-    arr_cells_states = []; // Reiniciar el array de estados de las celdas
+    arr_boxes_states = []; // Reiniciar el array de estados de las celdas
     getDefaultCellState(); // Reiniciar los estados de las celdas
     // console.log(arr_cells_states)
     // Actualizar la tabla con nuevos valores aleatorios
@@ -386,7 +392,7 @@ function racerEventSelectors(event_key){
                 console.log(racer+" "+event+position)
                 arr_events[selectedCellForEdit] = racer+" "+event+position; // Actualizar el texto de la celda seleccionada
                 
-                arr_cells_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
+                arr_boxes_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
 
                 updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
@@ -460,7 +466,7 @@ function racerEventRacerSelector(event_key) {
             
             arr_events[selectedCellForEdit] = racer1 + " " + event + " " + racer2; // Actualizar el texto de la celda seleccionada
             
-            arr_cells_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
+            arr_boxes_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
 
             updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
@@ -523,7 +529,7 @@ function teamEventSelectors(event_key) {
 
             arr_events[selectedCellForEdit] = team + " " + event // Actualizar el texto de la celda seleccionada
             
-            arr_cells_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
+            arr_boxes_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
 
             updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
@@ -644,7 +650,7 @@ function lapOrTurnEventSelector(event_key){
 
             arr_events[selectedCellForEdit] = type + " " + type_value + " " + event // Actualizar el texto de la celda seleccionada
             
-            arr_cells_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
+            arr_boxes_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
 
             updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
@@ -715,7 +721,7 @@ function amountEventSelector(event_key) {
 
             arr_events[selectedCellForEdit] = amount + " " + event // Actualizar el texto de la celda seleccionada
             
-            arr_cells_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
+            arr_boxes_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
 
             updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
@@ -766,7 +772,7 @@ function randomEventSelector(event_key) {
             arr_events[selectedCellForEdit] = event // Actualizar el texto de la celda seleccionada
             
             // Agregar esto en las otras funciones también
-            arr_cells_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
+            arr_boxes_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
             
             updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
@@ -897,7 +903,7 @@ function setupEventListeners(
 
             let selectedCell = document.getElementById("cell"+cellId);
             selectedCell.style.backgroundColor = webp_colours["checked"];
-            arr_cells_states[cellId] = 'checked'; // Actualizar el estado de la celda
+            arr_boxes_states[cellId] = 'checked'; // Actualizar el estado de la celda
 
             console.log("Setting state to checked after default...")
 
@@ -927,7 +933,7 @@ function setupEventListeners(
             let selectedCell = document.getElementById("cell"+cellId);
             selectedCell.setAttribute('data_state', 'unchecked');
             selectedCell.style.backgroundColor = webp_colours["unchecked"];
-            arr_cells_states[cellId] = 'unchecked'; // Actualizar el estado de la celda
+            arr_boxes_states[cellId] = 'unchecked'; // Actualizar el estado de la celda
 
             console.log("Setting state to unchecked after checked...")
 
@@ -951,7 +957,7 @@ function setupEventListeners(
             let selectedCell = document.getElementById("cell"+cellId);
             selectedCell.setAttribute('data_state', 'checked');
             selectedCell.style.backgroundColor = webp_colours["checked"];
-            arr_cells_states[cellId] = 'checked'; // Actualizar el estado de la celda
+            arr_boxes_states[cellId] = 'checked'; // Actualizar el estado de la celda
 
             console.log("Setting state to checked after unchecked...")
 
@@ -994,7 +1000,7 @@ function setupEventListeners(
         let selectedCell = document.getElementById("cell"+cellId);
         selectedCell.setAttribute('data_state', 'empty');
         selectedCell.style.backgroundColor = webp_colours["empty"];
-        arr_cells_states[cellId] = 'empty'; // Actualizar el estado de la celda   
+        arr_boxes_states[cellId] = 'empty'; // Actualizar el estado de la celda   
         
         const container_mobile_box_btns = document.getElementById("container_mobile_box_btns");
         container_mobile_box_btns.style.display = "none"; // Ocultar el contenedor de botones móviles
@@ -1012,7 +1018,7 @@ function setupEventListeners(
         console.log("Selected cell:", selectedCell);
         
         
-        recolorCells(); // Recolorear las celdas antes de resaltar la seleccionada
+        recolorBoxes(); // Recolorear las celdas antes de resaltar la seleccionada
 
         // Resaltar la celda seleccionada
         selectedCell.style.border = '3px solid '+webp_colours["cell_border_selected"];
@@ -1043,7 +1049,7 @@ let btn_close_edit_box = document.getElementById("btn_close_edit_box");
 btn_close_edit_box.addEventListener("click", function() {
     document.getElementById("container_edit_box").style.display = "none"; // Ocultar el contenedor de edición
 
-    recolorCells()
+    recolorBoxes()
     
     const seccion = document.getElementById('container_motto');
     seccion.scrollIntoView({ 
@@ -1090,7 +1096,7 @@ btn_block_matrix_input.addEventListener("click", function() {
         document.getElementById("container_edit_box").style.display = "none"; // Ocultar el contenedor de edición
         
         // Recolorear las celdas
-        recolorCells()
+        recolorBoxes()
 
         document.getElementById("btn_reload").disabled = true; // Deshabilitar el botón de recarga
         document.getElementById("btn_to_custom_grill").disabled = true; // Deshabilitar el botón de ir a la parrilla personalizada
