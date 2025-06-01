@@ -49,7 +49,7 @@ let btn_reload = document.getElementById("btn_reload")
 // Botón para cerrar el contenedor de botones móviles
 let mobile_btn_close = document.getElementById("mobile_btn_close");
 
-/* 4. FUNCIONES DOCUMENT */
+/* 4. FUNCIONES DOCUMENT GLOBALES */
 
 // Función para colorear boxes según su estado
 function recolorBoxes() {
@@ -263,23 +263,25 @@ btn_reload.addEventListener("click", function(event) {
 updateTabMainMatrix(5, 5)
 
 
+/* 7. MANEJO COMPLEJO DE SECCIONES PARTICUALRES DEL HTML*/ 
 
 /* ################# CÓDIGO DEDICADO A SELECTORES ################# */
+
+// Variable para almacenar la celda seleccionada para editar
+let selectedBoxToEdit = null;
 
 // Datos para los selectores
 const eventsData = getArrayObjectsKeyEvents()
 const racersData = getArrayRacersObjects()
 const teamsData = getArrayTeamsObjects()
 
-// Variables globales para los selectores
-let selectorEvents
-
-let selector1 = document.getElementById("selector1");
+// Obtener los elementos del DOM para los selectores
 let selector2 = document.getElementById("selector2");
 let selector3 = document.getElementById("selector3");
 let selector4 = document.getElementById("selector4");
 let selector5 = document.getElementById("selector5");
 
+// Obtener el área del botón de confirmación y el mensaje de alerta
 let edit_box_confirm_btn_area = document.getElementById("edit_box_confirm_btn_area")
 let edit_box_alert = document.getElementById("edit_box_alert")
 
@@ -287,7 +289,7 @@ let edit_box_alert = document.getElementById("edit_box_alert")
 document.addEventListener('DOMContentLoaded', function() {
     // Crear selector de tecnologías
     
-    selectorEvents = new CustomSelector('selector1', eventsData, {
+    let selectorEvents = new CustomSelector('selector1', eventsData, {
         label: 'Select the event type:',
         placeholder: 'Choose an event type of your liking',
         onSelectionChange: function(selection) {
@@ -300,9 +302,6 @@ document.addEventListener('DOMContentLoaded', function() {
             btn_edit_box_confirm.textContent = "Confirm selection";
             btn_edit_box_confirm.className = "btn_edit_box_confirm";
             edit_box_confirm_btn_area.appendChild(btn_edit_box_confirm);
-
-            console.log('Event selected:', selection);
-            console.log(getArrayTypeEventsObjects(selection.value));
 
             selector2.innerHTML = ""; // Limpiar el selector2 antes de llenarlo
             selector3.innerHTML = ""; // Limpiar el selector3 antes de llenarlo
@@ -330,8 +329,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 case 'random-event':
                     randomEventSelector(selection.value);
                     break;
-                default:
-                    console.log('Default event selected');
             }
 
         }
@@ -348,7 +345,6 @@ function racerEventSelectors(event_key){
         label: 'Select a racer:',
         placeholder: 'Choose a racer of your liking',
         onSelectionChange: function(selection) {
-            console.log('Racer selected:', selection);
             racer = selection.text; // Guardar el valor del corredor seleccionado
         }
     })
@@ -362,7 +358,6 @@ function racerEventSelectors(event_key){
             selector5.innerHTML = ""
             position = "" // Reiniciar la posición al seleccionar un nuevo evento
 
-            console.log('Type of event selected:', selection);
             event = selection.text; // Guardar el valor del evento seleccionado
 
             if (selection.value === 6){
@@ -380,7 +375,6 @@ function racerEventSelectors(event_key){
                     label: 'Select the position:',
                     placeholder: 'Choose a position of your liking',
                     onSelectionChange: function(selection) {
-                        console.log('Position selected:', selection);
                         position = selection.text; // Guardar el valor de la posición seleccionada
                     }
                 });
@@ -390,7 +384,7 @@ function racerEventSelectors(event_key){
 
     function sendSelectedData() {
 
-        if (selectedCellForEdit === null) {
+        if (selectedBoxToEdit === null) {
             console.log("Please select a box to edit.");
             edit_box_alert.innerHTML = "Please select a box to edit";
             return
@@ -407,19 +401,17 @@ function racerEventSelectors(event_key){
                 
                 edit_box_alert.innerHTML = ""; // Limpiar el mensaje de alerta
 
-                console.log(racer+" "+event+position)
-                arr_events[selectedCellForEdit] = racer+" "+event+position; // Actualizar el texto de la celda seleccionada
+                arr_events[selectedBoxToEdit] = racer+" "+event+position; // Actualizar el texto de la celda seleccionada
                 
-                arr_boxes_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
+                arr_boxes_states[selectedBoxToEdit] = 'default'; // Actualizar el estado de la celda a 'default'
 
                 updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
-                const seccion = document.getElementById('container_motto');
-                seccion.scrollIntoView({ 
-                    behavior: 'smooth' // Desplazamiento suave
-                });
+                scrollToSection('container_motto'); // Desplazarse a la sección de la tabla 
 
-                selectedCellForEdit = null; // Reiniciar la celda seleccionada para evitar ediciones múltiples sin selección
+                console.log(arr_events.at(selectedBoxToEdit));
+                
+                selectedBoxToEdit = null; // Reiniciar la celda seleccionada para evitar ediciones múltiples sin selección
             }
         }
         else {
@@ -445,7 +437,6 @@ function racerEventRacerSelector(event_key) {
         label: 'Select the first racer:',
         placeholder: 'Choose a racer of your liking',
         onSelectionChange: function(selection) {
-            console.log('Racer selected:', selection);
             racer1 = selection.text; // Guardar el valor del primer corredor seleccionado
         }
     });
@@ -454,7 +445,6 @@ function racerEventRacerSelector(event_key) {
         label: 'Select the type of event:',
         placeholder: 'Choose a type of event of your liking',
         onSelectionChange: function(selection) {
-            console.log('Type of event selected:', selection);
             event = selection.text; // Guardar el valor del evento seleccionado
         }
     });
@@ -463,14 +453,13 @@ function racerEventRacerSelector(event_key) {
         label: 'Select the second racer:',
         placeholder: 'Choose a racer of your liking',
         onSelectionChange: function(selection) {
-            console.log('Racer selected:', selection);
             racer2 = selection.text; // Guardar el valor del segundo corredor seleccionado
         }
     });
 
 
     function sendSelectedData() {
-        if (selectedCellForEdit === null) {
+        if (selectedBoxToEdit === null) {
             console.log("Please select a box to edit.");
             edit_box_alert.innerHTML = "Please select a box to edit";
             return
@@ -479,22 +468,19 @@ function racerEventRacerSelector(event_key) {
 
         if (racer1 && event && racer2) {
             edit_box_alert.innerHTML = ""; // Limpiar el mensaje de alerta
-
-            console.log(racer1 + " " + event + " " + racer2);
             
-            arr_events[selectedCellForEdit] = racer1 + " " + event + " " + racer2; // Actualizar el texto de la celda seleccionada
+            arr_events[selectedBoxToEdit] = racer1 + " " + event + " " + racer2; // Actualizar el texto de la celda seleccionada
             
-            arr_boxes_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
+            arr_boxes_states[selectedBoxToEdit] = 'default'; // Actualizar el estado de la celda a 'default'
 
             updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
-            const seccion = document.getElementById('container_motto');
-            seccion.scrollIntoView({ 
-                behavior: 'smooth' // Desplazamiento suave
-            });
+            scrollToSection('container_motto'); // Desplazarse a la sección de la tabla
 
-            selectedCellForEdit = null; // Reiniciar la celda seleccionada para evitar ediciones múltiples sin selección
-
+            console.log(arr_events.at(selectedBoxToEdit));
+            
+            selectedBoxToEdit = null; // Reiniciar la celda seleccionada para evitar ediciones múltiples sin selección
+            
         } else {
             console.log("Please select both racers and an event type.");
             edit_box_alert.innerHTML = "Please select both racers and an event type.";
@@ -516,7 +502,6 @@ function teamEventSelectors(event_key) {
         label: 'Select a team:',
         placeholder: 'Choose a team of your liking',
         onSelectionChange: function(selection) {
-            console.log('Team selected:', selection);
             team = selection.text; // Guardar el valor del equipo seleccionado
         }
     });
@@ -525,7 +510,6 @@ function teamEventSelectors(event_key) {
         label: 'Select the type of event:',
         placeholder: 'Choose a type of event of your liking',
         onSelectionChange: function(selection) {
-            console.log('Type of event selected:', selection);
             event = selection.text; // Guardar el valor del evento seleccionado
         }
     });
@@ -533,7 +517,7 @@ function teamEventSelectors(event_key) {
     btn_edit_box_confirm.addEventListener("click", function(e) {
         e.preventDefault()
 
-        if (selectedCellForEdit === null) {
+        if (selectedBoxToEdit === null) {
             console.log("Please select a box to edit.");
             edit_box_alert.innerHTML = "Please select a box to edit";
             return
@@ -543,20 +527,17 @@ function teamEventSelectors(event_key) {
             
             edit_box_alert.innerHTML = ""; // Limpiar el mensaje de alerta
 
-            console.log(team + " " + event);
-
-            arr_events[selectedCellForEdit] = team + " " + event // Actualizar el texto de la celda seleccionada
+            arr_events[selectedBoxToEdit] = team + " " + event // Actualizar el texto de la celda seleccionada
             
-            arr_boxes_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
+            arr_boxes_states[selectedBoxToEdit] = 'default'; // Actualizar el estado de la celda a 'default'
 
             updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
-            const seccion = document.getElementById('container_motto');
-            seccion.scrollIntoView({ 
-                behavior: 'smooth' // Desplazamiento suave
-            });
+            scrollToSection('container_motto'); // Desplazarse a la sección de la tabla
 
-            selectedCellForEdit = null; // Reiniciar la celda seleccionada para evitar ediciones múltiples sin selección
+            console.log(arr_events.at(selectedBoxToEdit));
+
+            selectedBoxToEdit = null; // Reiniciar la celda seleccionada para evitar ediciones múltiples sin selección
 
         } else {
             console.log("Please select a team and an event type.");
@@ -580,11 +561,9 @@ function lapOrTurnEventSelector(event_key){
         label: 'Select LAP or TURN:',
         placeholder: 'Choose LAP or TURN',
         onSelectionChange: function(selection) {
-            console.log('Selected:', selection);
             type = selection.text; // Guardar el valor del corredor seleccionado
             
             let circuit = getNextStage()
-            console.log("Circuit selected:", circuit);
 
             if (selection.value === 'Lap') {
                 
@@ -603,7 +582,6 @@ function lapOrTurnEventSelector(event_key){
                     label: 'Select a lap:',
                     placeholder: 'Choose a lap of your liking',
                     onSelectionChange: function(selection) {
-                        console.log('Lap selected:', selection);
                         // Aquí puedes agregar lógica específica para la vuelta seleccionada
                         type_value = selection.text; // Guardar el valor de la vuelta seleccionada
                     }
@@ -613,7 +591,6 @@ function lapOrTurnEventSelector(event_key){
                     label: 'Select the type of event:',
                     placeholder: 'Choose a type of event of your liking',
                     onSelectionChange: function(selection) {
-                        console.log('Type of event selected:', selection);
                         event = selection.text; // Guardar el valor del evento seleccionado
                     }
                 }); 
@@ -634,7 +611,6 @@ function lapOrTurnEventSelector(event_key){
                     label: 'Select a turn:',
                     placeholder: 'Choose a turn of your liking',
                     onSelectionChange: function(selection) {
-                        console.log('Turn selected:', selection);
                         // Aquí puedes agregar lógica específica para la curva seleccionada
                         type_value = selection.text; // Guardar el valor de la curva seleccionada
                     }
@@ -644,7 +620,6 @@ function lapOrTurnEventSelector(event_key){
                     label: 'Select the type of event:',
                     placeholder: 'Choose a type of event of your liking',
                     onSelectionChange: function(selection) {
-                        console.log('Type of event selected:', selection);
                         event = selection.text; // Guardar el valor del evento seleccionado
                     }
                 });
@@ -655,7 +630,7 @@ function lapOrTurnEventSelector(event_key){
 
     function sendSelectedData() {
         
-        if (selectedCellForEdit === null) {
+        if (selectedBoxToEdit === null) {
             console.log("Please select a box to edit.");
             edit_box_alert.innerHTML = "Please select a box to edit";
             return
@@ -664,20 +639,17 @@ function lapOrTurnEventSelector(event_key){
         if (type && type_value && event) {
             edit_box_alert.innerHTML = ""; // Limpiar el mensaje de alerta
 
-            console.log(type + " " + type_value + " " + event);
-
-            arr_events[selectedCellForEdit] = type + " " + type_value + " " + event // Actualizar el texto de la celda seleccionada
+            arr_events[selectedBoxToEdit] = type + " " + type_value + " " + event // Actualizar el texto de la celda seleccionada
             
-            arr_boxes_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
+            arr_boxes_states[selectedBoxToEdit] = 'default'; // Actualizar el estado de la celda a 'default'
 
             updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
-            const seccion = document.getElementById('container_motto');
-            seccion.scrollIntoView({ 
-                behavior: 'smooth' // Desplazamiento suave
-            });
+            scrollToSection('container_motto'); // Desplazarse a la sección de la tabla
 
-            selectedCellForEdit = null; // Reiniciar la celda seleccionada para evitar ediciones múltiples sin selección
+            console.log(arr_events.at(selectedBoxToEdit));
+
+            selectedBoxToEdit = null; // Reiniciar la celda seleccionada para evitar ediciones múltiples sin selección
 
         } else {
             console.log("Please select a type, a value and an event type.");
@@ -709,7 +681,6 @@ function amountEventSelector(event_key) {
         label: 'Select an amount:',
         placeholder: 'Choose an amount of your liking',
         onSelectionChange: function(selection) {
-            console.log('Amount selected:', selection);
             amount = selection.text; // Guardar el valor de la cantidad seleccionada
         }
     });
@@ -718,13 +689,12 @@ function amountEventSelector(event_key) {
         label: 'Select the type of event:',
         placeholder: 'Choose a type of event of your liking',
         onSelectionChange: function(selection) {
-            console.log('Type of event selected:', selection);
             event = selection.text; // Guardar el valor del evento seleccionado
         }
     });
 
     function sendSelectedData() {
-        if (selectedCellForEdit === null) {
+        if (selectedBoxToEdit === null) {
             console.log("Please select a box to edit.");
             edit_box_alert.innerHTML = "Please select a box to edit";
             return
@@ -735,20 +705,17 @@ function amountEventSelector(event_key) {
             
             edit_box_alert.innerHTML = ""; // Limpiar el mensaje de alerta
 
-            console.log(amount + " " + event);
-
-            arr_events[selectedCellForEdit] = amount + " " + event // Actualizar el texto de la celda seleccionada
+            arr_events[selectedBoxToEdit] = amount + " " + event // Actualizar el texto de la celda seleccionada
             
-            arr_boxes_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
+            arr_boxes_states[selectedBoxToEdit] = 'default'; // Actualizar el estado de la celda a 'default'
 
             updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
-            const seccion = document.getElementById('container_motto');
-            seccion.scrollIntoView({ 
-                behavior: 'smooth' // Desplazamiento suave
-            });
+            scrollToSection('container_motto'); // Desplazarse a la sección de la tabla
 
-            selectedCellForEdit = null; // Reiniciar la celda seleccionada para evitar ediciones múltiples sin selección
+            console.log(arr_events.at(selectedBoxToEdit));
+
+            selectedBoxToEdit = null; // Reiniciar la celda seleccionada para evitar ediciones múltiples sin selección
 
         } else {
             console.log("Please select an amount and an event type.");
@@ -770,13 +737,12 @@ function randomEventSelector(event_key) {
         label: 'Select the type of event:',
         placeholder: 'Choose a type of event of your liking',
         onSelectionChange: function(selection) {
-            console.log('Type of event selected:', selection);
             event = selection.text; // Guardar el valor del evento seleccionado
         }
     });
 
     function sendSelectedData() {
-        if (selectedCellForEdit === null) {
+        if (selectedBoxToEdit === null) {
             console.log("Please select a box to edit.");
             edit_box_alert.innerHTML = "Please select a box to edit";
             return
@@ -784,26 +750,25 @@ function randomEventSelector(event_key) {
 
         if (event) {
             edit_box_alert.innerHTML = ""; // Limpiar el mensaje de alerta
-
-            console.log(event);
             
-            arr_events[selectedCellForEdit] = event // Actualizar el texto de la celda seleccionada
+            arr_events[selectedBoxToEdit] = event // Actualizar el texto de la celda seleccionada
             
             // Agregar esto en las otras funciones también
-            arr_boxes_states[selectedCellForEdit] = 'default'; // Actualizar el estado de la celda a 'default'
+            arr_boxes_states[selectedBoxToEdit] = 'default'; // Actualizar el estado de la celda a 'default'
             
             updateTabMainMatrix(5, 5); // Actualizar la tabla para reflejar el cambio
 
-            const seccion = document.getElementById('container_motto');
-            seccion.scrollIntoView({ 
-                behavior: 'smooth' // Desplazamiento suave
-            });
+            scrollToSection('container_motto'); // Desplazarse a la sección de la tabla
+
+            console.log(arr_events.at(selectedBoxToEdit));
+
+            // Reiniciar la celda seleccionada para evitar ediciones múltiples sin selección
+            selectedBoxToEdit = null;
+
         } else {
             console.log("Please select an event.");
             edit_box_alert.innerHTML = "Please select an event.";
         }
-
-        selectedCellForEdit = null; // Reiniciar la celda seleccionada para evitar ediciones múltiples sin selección
     }
 
     btn_edit_box_confirm.addEventListener("click", function(e) {
@@ -818,7 +783,7 @@ function randomEventSelector(event_key) {
 
 
 /* ################# CÓDIGO DEDICADO A BOX CELLS ################# */
-let selectedCellForEdit = null;
+
 
 function createContainerBox(text,cellId) {
     // cellCounter++;
@@ -955,8 +920,8 @@ function setupEventListeners(
 
             console.log("Setting state to unchecked after checked...")
 
-            if (cellId === selectedCellForEdit) {
-                let selectedCell = document.getElementById("cell"+selectedCellForEdit);
+            if (cellId === selectedBoxToEdit) {
+                let selectedCell = document.getElementById("cell"+selectedBoxToEdit);
                 selectedCell.style.backgroundColor = webp_colours["selected"]
             }
         }
@@ -1030,9 +995,9 @@ function setupEventListeners(
         
         document.getElementById("container_edit_box").style.display = "grid";
 
-        selectedCellForEdit = cellId;
+        selectedBoxToEdit = cellId;
 
-        let selectedCell = document.getElementById("cell"+selectedCellForEdit);
+        let selectedCell = document.getElementById("cell"+selectedBoxToEdit);
         console.log("Selected cell:", selectedCell);
         
         
