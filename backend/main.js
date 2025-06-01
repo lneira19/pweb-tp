@@ -46,12 +46,14 @@ let tab_main_matrix = document.getElementById("tab_main_matrix")
 // Botón de recarga con valores aleatorios
 let btn_reload = document.getElementById("btn_reload")
 
+// Botón para cerrar el contenedor de botones móviles
+let mobile_btn_close = document.getElementById("mobile_btn_close");
 
 /* 4. FUNCIONES DOCUMENT */
 
 // Función para colorear boxes según su estado
 function recolorBoxes() {
-    // Poner el borde original de las celdas a las demás
+    
     let allBoxes = document.querySelectorAll("td");
     
     let i = 0
@@ -77,18 +79,8 @@ function recolorBoxes() {
     });
 }
 
-// Botón para cerrar el contenedor de botones móviles
-let mobile_btn_close = document.getElementById("mobile_btn_close");
-mobile_btn_close.addEventListener("click", function() {
-    console.log("Mobile close button clicked");
-    const container_mobile_box_btns = document.getElementById("container_mobile_box_btns");
-    container_mobile_box_btns.style.display = "none"; // Ocultar el contenedor de botones móviles
-})
-
-
+// Función para actualizar la tabla luego de crearla o modificarla
 function updateTabMainMatrix(rows, cols) {
-    
-    //let arr_random_events = getCollectionOfRandomEvents(rows * cols)
     
     tab_main_matrix.innerHTML = ""; // Limpiar la tabla antes de llenarla
     
@@ -98,18 +90,17 @@ function updateTabMainMatrix(rows, cols) {
         const row = document.createElement("tr");
         
         for (let j = 0; j < cols; j++) {
-            const cell = document.createElement("td");
-            cell.id = "cell" + (i * cols + j); // Asignar un ID único a cada celda
+            const box = document.createElement("td");
+            box.id = "cell" + (i * cols + j); // Asignar un ID único a cada box
 
             const containerBox = createContainerBox(arr_events.at(i * cols + j), i * cols + j)
-            cell.appendChild(containerBox); // Agregar el container_box a la celda
+            box.appendChild(containerBox); // Agregar el container_box al box
 
             
-            cell.onclick = function() {
+            box.onclick = function() {
                 let selection = i * cols + j
-                // console.log("Cell clicked:", selection);
 
-                let status = arr_boxes_states.at(selection); // Obtener el estado de la celda
+                let status = arr_boxes_states.at(selection); // Obtener el estado del box
                 console.log("Cell status:", status);
 
                 
@@ -187,9 +178,8 @@ function updateTabMainMatrix(rows, cols) {
                 mobile_btn_check.addEventListener("click", function() {
                     console.log("cell clicked:", selection);
                 })
-
-                // Hacer lo mismo con las otras celdas
-                // Y probar con setupEventListeners()
+                
+                // Configurar los event listeners para los botones móviles
                 setupEventListeners(
                     selection,
                     mobile_btn_check,
@@ -200,7 +190,7 @@ function updateTabMainMatrix(rows, cols) {
 
             }
 
-            row.appendChild(cell);
+            row.appendChild(box);
         }
         
         tab_main_matrix.appendChild(row);
@@ -209,6 +199,7 @@ function updateTabMainMatrix(rows, cols) {
     recolorBoxes(); // Recolorear las celdas después de crear la tabla
 }
 
+// Función para verificar si se ha hecho bingo
 function checkForBingo() {
     if (arr_boxes_states.every(state => state === 'checked')) {
         console.log("Bingo! All cells are checked.");
@@ -220,31 +211,58 @@ function checkForBingo() {
     }
 }
 
-/* MAIN */
-updateTabMainMatrix(5, 5) // Inicializar la tabla con 5 filas y 5 columnas
+// Función para desplazarse a una sección específica del documento
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    section.scrollIntoView({ 
+        behavior: 'smooth' // Desplazamiento suave
+    });      
+}
 
+/* 5. EVENT LISTENERS GLOBALES */
+
+// Evento para el botón de cerrar el contenedor de botones móviles
+mobile_btn_close.addEventListener("click", function() {
+    const container_mobile_box_btns = document.getElementById("container_mobile_box_btns");
+    // Ocultar el contenedor de botones móviles
+    container_mobile_box_btns.style.display = "none"; 
+})
+
+// Evento para el botón de recarga aleatoria
 btn_reload.addEventListener("click", function(event) {
-    event.preventDefault(); // Prevenir el comportamiento por defecto del botón
+     // Prevenir el comportamiento por defecto del botón
+    event.preventDefault();
     
-    let bingo = checkForBingo(); // Verificar si se ha hecho bingo
+    // Verificar si se ha hecho bingo
+    let bingo = checkForBingo();
     if (bingo) {
         document.getElementById("tab_main_matrix_title").style.display = "grid"
         document.getElementById("bingo_message").style.display = "none";
     }
 
+    // Reiniciar el array de eventos con nuevos valores aleatorios
     arr_events = getCollectionOfRandomEvents(5 * 5)
     
-    arr_boxes_states = []; // Reiniciar el array de estados de las celdas
-    getDefaultCellState(); // Reiniciar los estados de las celdas
-    // console.log(arr_cells_states)
+     // Reiniciar el array de estados de las celdas
+    arr_boxes_states = [];
+    
+     // Reiniciar los estados de las celdas
+    getDefaultCellState();
+
     // Actualizar la tabla con nuevos valores aleatorios
     updateTabMainMatrix(5, 5);
 
-    const seccion = document.getElementById('container_motto');
-    seccion.scrollIntoView({ 
-        behavior: 'smooth' // Desplazamiento suave
-    });
+    // Desplazar a la sección de la tabla
+    scrollToSection('container_motto')
 });
+
+
+/* 6. MAIN: EJECUCIÓN DE FUNCIONES BACKEND Y DOCUMENT */
+
+// Inicializar la tabla con 5 filas y 5 columnas
+updateTabMainMatrix(5, 5)
+
+
 
 /* ################# CÓDIGO DEDICADO A SELECTORES ################# */
 
