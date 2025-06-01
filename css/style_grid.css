@@ -1,0 +1,206 @@
+/* ################### CONFIGURACIÓN DE LA GRILLA ###################*/
+
+.table_container {  display: grid;
+  grid-template-columns: 0.05fr 1fr 0.05fr;
+  grid-template-rows: 0.05fr 1fr 0.05fr;
+  grid-auto-columns: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". tab_main_matrix_title_area ."
+    ". tab_main_matrix_area ."
+    ". tab_main_matrix_btns_area .";
+  /* height: 700px; */
+
+}
+
+.tab_main_matrix_area { 
+  grid-area: tab_main_matrix_area;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#tab_main_matrix{
+  background-color: #202020;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.tab_main_matrix_btns_area {
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  grid-template-rows: 1fr; 
+  gap: 0px 0px; 
+  grid-template-areas: 
+    "random_btn block_matrix_btn"; 
+  grid-area: tab_main_matrix_btns_area;
+  padding-top: 10px;
+  padding-bottom: 10px; 
+}
+
+.random_btn { grid-area: random_btn;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  padding-right: 70px;
+}
+
+.block_matrix_btn { grid-area: block_matrix_btn;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding-left: 70px;
+}
+
+.btn_reload_input {
+  font-family: 'Titillium Web', sans-serif;
+  letter-spacing: 0.5px;
+
+  width: 150px;
+  height: 30px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+  background-color: #14b85b;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.btn_reload_input:hover {
+  opacity: 0.8;
+  background-color: #16ce66;
+}
+
+.btn_block_matrix_input {
+  font-family: 'Titillium Web', sans-serif;
+  letter-spacing: 0.5px;
+  
+  width: 150px;
+  height: 30px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+  color: #ffffff;
+  background-color: #ff0000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.btn_block_matrix_input:hover {
+  opacity: 0.8;
+  /* background-color: #2d69eb; */
+}
+
+.tab_main_matrix_title_area {
+  grid-area: tab_main_matrix_title_area;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#tab_main_matrix_title {
+  /* display: none; */
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: bold;
+  letter-spacing: 0.1px;
+  font-size: 24px;
+  text-align: center;
+  padding: 15px;
+}
+
+#bingo_message {
+  display: none;
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: bold;
+  letter-spacing: 0.1px;
+  font-size: 50px;
+  text-align: center;
+  padding: 15px;
+}
+
+td {
+  border: 2px solid #202020;
+  padding: 10px;
+  width: 100px;
+  height: 100px;
+  vertical-align: top;
+  /* background-color: gray; */
+  transition: background-color 0.3s ease;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+td:hover {
+  opacity: 0.7;
+  background-color: #FFB116;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transform: scale(1.05);
+}
+
+@media screen and (max-width: 700px) {
+  .table_container {  display: grid;
+    grid-template-columns: 0.05fr 1fr 0.05fr;
+    grid-template-rows: 0.05fr 1fr 0.05fr;
+    grid-auto-columns: 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      ". tab_main_matrix_title_area ."
+      ". tab_main_matrix_area ."
+      ". tab_main_matrix_btns_area .";
+    /* height: 700px; */
+
+  }
+
+  td {
+    border: 2px solid #202020;
+    /* padding: 10px; */
+    width: 1fr;
+
+    /* La celda tomará el ancho mayor de td */
+    height: 180px;
+
+    vertical-align: top;
+    /* background-color: gray; */
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .tab_main_matrix_btns_area{
+    padding-top: 40px;
+  }
+
+  .random_btn {
+    padding-right: 40px;
+  }
+
+  .block_matrix_btn {
+    padding-left: 40px;
+  }
+
+  .btn_reload_input {
+    width: 200px;
+    height: 100px;
+    border-radius: 10px;
+    font-size: 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+
+  .btn_block_matrix_input {
+    width: 200px;
+    height: 100px;
+    border-radius: 10px;
+    font-size: 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+  
+}
