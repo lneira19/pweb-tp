@@ -5,7 +5,6 @@ import {CustomSelector} from "./selector.js"
 import {getArrayObjectsKeyEvents, getArrayRacersObjects, getArrayTeamsObjects, getArrayTypeEventsObjects} from "./staticdata.js"
 import {getNextStage} from "./staticdata.js"
 
-
 /* 2. VARIABLES BACKEND GLOBALES: DEFINICIÓN E INCIALIZACIÓN */
 
 // Array para almacenar los textos de las celdas junto a inicialización aleatoria
@@ -48,6 +47,21 @@ let btn_reload = document.getElementById("btn_reload")
 
 // Botón para cerrar el contenedor de botones móviles
 let mobile_btn_close = document.getElementById("mobile_btn_close");
+
+// Botón para cerrar el contenedor de edición
+let btn_close_edit_box = document.getElementById("btn_close_edit_box");
+
+// Botón de navegación hacia la grilla
+let btn_to_grill = document.getElementById("btn_to_grill");
+
+// Botón de navegación hacia editor de boxes
+let btn_to_custom_grill = document.getElementById("btn_to_custom_grill");
+
+// Botón de navegación hacia el sección circuito
+let btn_to_circuit = document.getElementById("btn_to_circuit");
+
+// Botón de navegación hacia la sección de ayuda
+let btn_to_help = document.getElementById("btn_to_help");
 
 /* 4. FUNCIONES DOCUMENT GLOBALES */
 
@@ -101,14 +115,9 @@ function updateTabMainMatrix(rows, cols) {
                 let selection = i * cols + j
 
                 let status = arr_boxes_states.at(selection); // Obtener el estado del box
-                console.log("Cell status:", status);
 
-                
                 // Mostrar div
                 if (window.matchMedia('(max-width: 700px)').matches) {
-                    // El código aquí se ejecuta si el ancho de pantalla es <= 700px
-                    console.log('Pantalla pequeña detectada');
-                
                     const container_mobile_box_btns = document.getElementById("container_mobile_box_btns");
                     container_mobile_box_btns.style.display = "grid"; // Ocultar el contenedor de botones móviles
                 }
@@ -180,7 +189,7 @@ function updateTabMainMatrix(rows, cols) {
                 })
                 
                 // Configurar los event listeners para los botones móviles
-                setupEventListeners(
+                setupEventListenersForBoxBtns(
                     selection,
                     mobile_btn_check,
                     mobile_btn_delete,
@@ -217,6 +226,40 @@ function scrollToSection(sectionId) {
     section.scrollIntoView({ 
         behavior: 'smooth' // Desplazamiento suave
     });      
+}
+
+// Función para actualizar la sección del circuito
+function updateCircuitSection() {
+    const circuit = getNextStage();
+    
+    // TEXTO
+    const circuit_title_area = document.getElementById("circuit_title_area");
+    circuit_title_area.innerHTML = circuit.name; // Actualizar el título del circuito
+
+    const circuit_country_area = document.getElementById("circuit_country_area");
+    circuit_country_area.innerHTML = circuit.country; // Actualizar el país del circuito
+
+    const laps_value = document.getElementById("laps_value");
+    laps_value.innerHTML = circuit.laps; // Actualizar el número de vueltas del circuito
+
+    const turns_value = document.getElementById("turns_value");
+    turns_value.innerHTML = circuit.turns; // Actualizar el número de curvas del circuito
+
+    const length_value = document.getElementById("length_value");
+    length_value.innerHTML = circuit["circuit-length"]+" m"; // Actualizar la longitud del circuito
+
+    const circuit_history_area = document.getElementById("circuit_history_area");
+    circuit_history_area.innerHTML = circuit.history; // Actualizar la historia del circuito
+
+    // IMAGEN
+    const circuit_img_area = document.getElementById("circuit_img_area");
+    circuit_img_area.innerHTML = ""; // Limpiar el área de imagen antes de agregar la nueva
+    const circuitImg = document.createElement("img");
+    circuitImg.src = circuit.imgsrc; // Asignar la fuente de la imagen del circuito
+    circuitImg.alt = "Circuit Image"; // Texto alternativo para la imagen
+    circuitImg.height = "300"; // Altura de la imagen
+    circuitImg.width = "500"; // Ancho de la imagen
+    circuit_img_area.appendChild(circuitImg); // Agregar la imagen al área correspondiente
 }
 
 /* 5. EVENT LISTENERS GLOBALES */
@@ -256,17 +299,50 @@ btn_reload.addEventListener("click", function(event) {
     scrollToSection('container_motto')
 });
 
+// Evento para el botón de cerrar el contenedor de edición
+btn_close_edit_box.addEventListener("click", function() {
+    document.getElementById("container_edit_box").style.display = "none"; // Ocultar el contenedor de edición
 
-/* 6. MAIN: EJECUCIÓN DE FUNCIONES BACKEND Y DOCUMENT */
+    recolorBoxes()
+    
+    scrollToSection('container_motto'); // Desplazarse a la sección de la tabla
+});
+
+// Evento para el botón de navegación hacia la grilla
+btn_to_grill.addEventListener("click", function() {
+    
+    scrollToSection("table_container"); // Desplazarse a la sección de la tabla
+})
+
+// Evento para el botón de navegación hacia el editor de boxes
+btn_to_custom_grill.addEventListener("click", function() {
+    
+    document.getElementById("container_edit_box").style.display = "grid";
+
+    scrollToSection('container_edit_box'); // Desplazarse a la sección de edición
+})
+
+// Evento para el botón de navegación hacia la sección del circuito
+btn_to_circuit.addEventListener("click", function() {
+    
+    scrollToSection('container_circuit'); // Desplazarse a la sección del circuito
+})
+
+// Evento para el botón de navegación hacia la sección de ayuda
+btn_to_help.addEventListener("click", function() {
+    scrollToSection('container_help'); // Desplazarse a la sección de ayuda
+})
+
+/* 6. INCIALIZACIÓN DEL MAIN CON EJECUCIÓN DE FUNCIONES BACKEND Y DOCUMENT */
 
 // Inicializar la tabla con 5 filas y 5 columnas
 updateTabMainMatrix(5, 5)
-
+updateCircuitSection()
+updateHeaderNavigation();
 
 /* 7. MANEJO COMPLEJO DE SECCIONES PARTICUALRES DEL HTML*/ 
 
 /* ################# CÓDIGO DEDICADO A SELECTORES ################# */
-
 // Variable para almacenar la celda seleccionada para editar
 let selectedBoxToEdit = null;
 
@@ -780,15 +856,9 @@ function randomEventSelector(event_key) {
 /* ################# FIN CÓDIGO DEDICADO A SELECTORES ################# */
 
 
-
-
 /* ################# CÓDIGO DEDICADO A BOX CELLS ################# */
 
-
 function createContainerBox(text,cellId) {
-    // cellCounter++;
-    // const cellId = cellCounter;
-
     // Crear el contenedor principal
     const containerBox = document.createElement('div');
     containerBox.className = 'container_box';
@@ -844,7 +914,7 @@ function createContainerBox(text,cellId) {
     containerBox.appendChild(boxBtnsArea);
 
     // Agregar event listeners
-    setupEventListeners(
+    setupEventListenersForBoxBtns(
         cellId,
         containerBox.querySelector('#btn_check'),
         containerBox.querySelector('#btn_delete'),
@@ -853,24 +923,18 @@ function createContainerBox(text,cellId) {
 
     return containerBox;
 }
-function setupEventListeners(
+
+function setupEventListenersForBoxBtns(
     cellId,
     btnCheck,
     btnDelete,
     btnEdit,
     textArea) {
     
-    // const btnCheck = container.querySelector('#btn_check');
-    // const btnDelete = container.querySelector('#btn_delete');
-    // const btnEdit = container.querySelector('#btn_edit');
-    // const textArea = container.querySelector('.box_text_area');
 
     // Funcionalidad del botón Check
     btnCheck.addEventListener('click', function() {
         const currentState = this.getAttribute('data-state');
-
-        console.log("Current state:", currentState);
-        console.log("Cell ID:", cellId);
         
         if (currentState === 'default') {
             
@@ -884,8 +948,8 @@ function setupEventListeners(
             
             this.setAttribute('data-state', 'checked')
 
-            let selectedCell = document.getElementById("cell"+cellId);
-            selectedCell.style.backgroundColor = webp_colours["checked"];
+            let selectedBox = document.getElementById("cell"+cellId);
+            selectedBox.style.backgroundColor = webp_colours["checked"];
             arr_boxes_states[cellId] = 'checked'; // Actualizar el estado de la celda
 
             console.log("Setting state to checked after default...")
@@ -896,10 +960,7 @@ function setupEventListeners(
                 document.getElementById("tab_main_matrix_title").style.display = "none"
                 document.getElementById("bingo_message").style.display = "grid"; // Mostrar mensaje de bingo
                 
-                const seccion = document.getElementById('container_motto');
-                seccion.scrollIntoView({ 
-                    behavior: 'smooth' // Desplazamiento suave
-                });
+                scrollToSection('container_motto'); // Desplazarse a la sección de la tabla
             }
         }
         else if (currentState === 'checked') {
@@ -913,9 +974,9 @@ function setupEventListeners(
 
             this.setAttribute('data-state', 'unchecked')
 
-            let selectedCell = document.getElementById("cell"+cellId);
-            selectedCell.setAttribute('data_state', 'unchecked');
-            selectedCell.style.backgroundColor = webp_colours["unchecked"];
+            let selectedBox = document.getElementById("cell"+cellId);
+            selectedBox.setAttribute('data_state', 'unchecked');
+            selectedBox.style.backgroundColor = webp_colours["unchecked"];
             arr_boxes_states[cellId] = 'unchecked'; // Actualizar el estado de la celda
 
             console.log("Setting state to unchecked after checked...")
@@ -937,9 +998,9 @@ function setupEventListeners(
             
             this.setAttribute('data-state', 'checked')
 
-            let selectedCell = document.getElementById("cell"+cellId);
-            selectedCell.setAttribute('data_state', 'checked');
-            selectedCell.style.backgroundColor = webp_colours["checked"];
+            let selectedBox = document.getElementById("cell"+cellId);
+            selectedBox.setAttribute('data_state', 'checked');
+            selectedBox.style.backgroundColor = webp_colours["checked"];
             arr_boxes_states[cellId] = 'checked'; // Actualizar el estado de la celda
 
             console.log("Setting state to checked after unchecked...")
@@ -949,10 +1010,7 @@ function setupEventListeners(
                 document.getElementById("tab_main_matrix_title").style.display = "none"
                 document.getElementById("bingo_message").style.display = "grid"; // Mostrar mensaje de bingo
                 
-                const seccion = document.getElementById('container_motto');
-                seccion.scrollIntoView({ 
-                    behavior: 'smooth' // Desplazamiento suave
-                });
+                scrollToSection('container_motto'); // Desplazarse a la sección de la tabla
             }
         }
 
@@ -980,9 +1038,9 @@ function setupEventListeners(
         
         btnCheck.setAttribute('data-state', 'default');
 
-        let selectedCell = document.getElementById("cell"+cellId);
-        selectedCell.setAttribute('data_state', 'empty');
-        selectedCell.style.backgroundColor = webp_colours["empty"];
+        let selectedBox = document.getElementById("cell"+cellId);
+        selectedBox.setAttribute('data_state', 'empty');
+        selectedBox.style.backgroundColor = webp_colours["empty"];
         arr_boxes_states[cellId] = 'empty'; // Actualizar el estado de la celda   
         
         const container_mobile_box_btns = document.getElementById("container_mobile_box_btns");
@@ -997,22 +1055,17 @@ function setupEventListeners(
 
         selectedBoxToEdit = cellId;
 
-        let selectedCell = document.getElementById("cell"+selectedBoxToEdit);
-        console.log("Selected cell:", selectedCell);
-        
+        let selectedBox = document.getElementById("cell"+selectedBoxToEdit);
         
         recolorBoxes(); // Recolorear las celdas antes de resaltar la seleccionada
 
         // Resaltar la celda seleccionada
-        selectedCell.style.border = '3px solid '+webp_colours["cell_border_selected"];
-        selectedCell.style.backgroundColor = webp_colours["selected"]; // Cambiar el color de fondo para resaltar
-        selectedCell.style.transition = 'background-color 0.3s ease'; // Añadir transición suave
+        selectedBox.style.border = '3px solid '+webp_colours["cell_border_selected"];
+        selectedBox.style.backgroundColor = webp_colours["selected"]; // Cambiar el color de fondo para resaltar
+        selectedBox.style.transition = 'background-color 0.3s ease'; // Añadir transición suave
 
     
-        const seccion = document.getElementById('container_edit_box');
-        seccion.scrollIntoView({ 
-            behavior: 'smooth' // Desplazamiento suave
-        });
+        scrollToSection('container_edit_box'); // Desplazarse a la sección de edición
 
         edit_box_alert.innerHTML = ""; // Limpiar el mensaje de alerta
     
@@ -1022,26 +1075,6 @@ function setupEventListeners(
     });
 }
 /* ################# FIN CÓDIGO DEDICADO A BOX CELLS ################# */
-
-
-
-
-/* ################# CÓDIGO DEDICADO A EDIT BOX CLOSE BTN ################# */
-let btn_close_edit_box = document.getElementById("btn_close_edit_box");
-
-btn_close_edit_box.addEventListener("click", function() {
-    document.getElementById("container_edit_box").style.display = "none"; // Ocultar el contenedor de edición
-
-    recolorBoxes()
-    
-    const seccion = document.getElementById('container_motto');
-    seccion.scrollIntoView({ 
-        behavior: 'smooth' // Desplazamiento suave
-    });
-});
-/* ################# FIN CÓDIGO DEDICADO A EDIT BOX CLOSE BTN ################# */
-
-
 
 
 /* ################# CÓDIGO DEDICADO A BLOCK GRID BTN ################# */
@@ -1134,92 +1167,9 @@ btn_block_matrix_input.addEventListener("click", function() {
         console.log("Grid unblocked");
     }
 
-    const seccion = document.getElementById('table_container');
-    seccion.scrollIntoView({ 
-        behavior: 'smooth' // Desplazamiento suave
-    });
+    scrollToSection('container_motto'); // Desplazarse a la sección de la tabla
 });
 /* ################# FIN CÓDIGO DEDICADO A BLOCK GRID BTN ################# */
-
-
-/*  ################# CÓDIGO DEDICADO A SECTION BTNS #################*/
-let btn_to_grill = document.getElementById("btn_to_grill");
-let btn_to_custom_grill = document.getElementById("btn_to_custom_grill");
-let btn_to_circuit = document.getElementById("btn_to_circuit");
-let btn_to_help = document.getElementById("btn_to_help");
-
-btn_to_grill.addEventListener("click", function() {
-    
-    const seccion = document.getElementById('table_container');
-    seccion.scrollIntoView({ 
-        behavior: 'smooth' // Desplazamiento suave
-    });
-})
-btn_to_custom_grill.addEventListener("click", function() {
-    
-    document.getElementById("container_edit_box").style.display = "grid";
-
-    const seccion = document.getElementById('container_edit_box');
-    seccion.scrollIntoView({ 
-        behavior: 'smooth' // Desplazamiento suave
-    });
-})
-btn_to_circuit.addEventListener("click", function() {
-    
-    const seccion = document.getElementById('container_circuit');
-    seccion.scrollIntoView({ 
-        behavior: 'smooth' // Desplazamiento suave
-    });
-    }
-)
-btn_to_help.addEventListener("click", function() {
-    const seccion = document.getElementById('container_help');
-    seccion.scrollIntoView({ 
-        behavior: 'smooth' // Desplazamiento suave
-    });
-})
-/* ################# FIN CÓDIGO DEDICADO A SECTION BTNS ################# */
-
-
-
-
-/* ################# CÓDIGO DEDICADO A SECCIÓN CIRCUITO ################# */
-function updateCircuitSection() {
-    const circuit = getNextStage();
-    
-    // TEXTO
-    const circuit_title_area = document.getElementById("circuit_title_area");
-    circuit_title_area.innerHTML = circuit.name; // Actualizar el título del circuito
-
-    const circuit_country_area = document.getElementById("circuit_country_area");
-    circuit_country_area.innerHTML = circuit.country; // Actualizar el país del circuito
-
-    const laps_value = document.getElementById("laps_value");
-    laps_value.innerHTML = circuit.laps; // Actualizar el número de vueltas del circuito
-
-    const turns_value = document.getElementById("turns_value");
-    turns_value.innerHTML = circuit.turns; // Actualizar el número de curvas del circuito
-
-    const length_value = document.getElementById("length_value");
-    length_value.innerHTML = circuit["circuit-length"]+" m"; // Actualizar la longitud del circuito
-
-    const circuit_history_area = document.getElementById("circuit_history_area");
-    circuit_history_area.innerHTML = circuit.history; // Actualizar la historia del circuito
-
-    // IMAGEN
-    const circuit_img_area = document.getElementById("circuit_img_area");
-    circuit_img_area.innerHTML = ""; // Limpiar el área de imagen antes de agregar la nueva
-    const circuitImg = document.createElement("img");
-    circuitImg.src = circuit.imgsrc; // Asignar la fuente de la imagen del circuito
-    circuitImg.alt = "Circuit Image"; // Texto alternativo para la imagen
-    circuitImg.height = "300"; // Altura de la imagen
-    circuitImg.width = "500"; // Ancho de la imagen
-    circuit_img_area.appendChild(circuitImg); // Agregar la imagen al área correspondiente
-}
-updateCircuitSection();
-/* ################# FIN CÓDIGO DEDICADO A SECCIÓN CIRCUITO ################# */
-
-
 
 
 /* ################# CÓDIGO DEDICADO A BOTÓN DE NAVEGACIÓN DEL HEADER #################*/
@@ -1330,4 +1280,4 @@ function updateHeaderNavigation() {
         }
     });
 }
-updateHeaderNavigation();
+/* ################# FIN CÓDIGO DEDICADO A BOTÓN DE NAVEGACIÓN DEL HEADER ################# */
